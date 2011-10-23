@@ -1,0 +1,386 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Git para iniciantes - X-Source</title>
+  <meta name="author" content="Thiago Lagden">
+
+  
+  <meta name="description" content="Este artigo explica como usar o git via linha de comando.
+Há alguns GUI (Interface Gráfica) para git, mas a maioria dos desenvolvedores usam a linha &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://lagden.github.com/blog/2011/10/01/git-para-iniciantes">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="X-Source" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26077512-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">X-Source</a></h1>
+  
+    <h2>Making some code</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss email">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+    <li><a href="http://feeds.feedburner.com/xsource" rel="subscribe-email" title="subscribe via email">Email</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:lagden.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/about">About</a></li>
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Git para iniciantes</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+  
+
+<time datetime="2011-10-01T15:36:00-03:00" pubdate>Oct 1<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><blockquote><p>Este artigo explica como usar o <strong>git</strong> via linha de comando.<br/>
+Há alguns GUI (Interface Gráfica) para git, mas a maioria dos desenvolvedores usam a linha de comando juntamente com um visualizador de GUI para ser mais eficiente.</p></blockquote>
+
+<h2>O Básico</h2>
+
+<hr />
+
+<p>Se você ainda não instalou git em sua máquina, você deve ler o artigo <a href="/blog/2011/10/01/instalando-git/">Instalando o Git</a>.</p>
+
+<h3>git init - inicializa um repositório Git</h3>
+
+<p>Para criar um repositório em um diretório com arquivos existentes, você pode simplesmente executar <code>git init</code> no diretório.<br/>
+Por exemplo, digamos que temos um diretório com alguns arquivos nele, assim:</p>
+
+<pre><code>$ cd ~/my_app
+$ ls
+README   hello.rb
+</code></pre>
+
+<p>Este é o projeto &#8220;Hello Word&#8221; que estamos escrevendo de exemplo.<br/>
+Até agora só temos dois arquivos, mas já é um começo para iniciar o controle de versão com git.</p>
+
+<pre><code>$ git init
+Initialized empty Git repository in ~/my_app/.git/
+</code></pre>
+
+<p>Agora você pode ver que há um subdiretório .git em seu projeto.<br/>
+Este é o seu repositório <strong>Git</strong>, onde todos os passos do seu projeto serão armazenados.</p>
+
+<pre><code>$ ls -a
+.        ..       .git     README   hello.rb
+</code></pre>
+
+<h3>git add - adiciona conteúdo do arquivo para a &#8220;staging area&#8221;</h3>
+
+<p>No Git, você tem que adicionar o conteúdo do arquivo para &#8220;staging area&#8221; antes de comitá-los.<br/>
+Você deverá executar <code>git add</code> para adicioná-lo na sua &#8220;staging area&#8221;, mesmo se o arquivo já está &#8220;tracked&#8221; - ou seja, estava no seu último &#8220;commit&#8221; - precisamos chamar <code>git add</code> para adicionar as novas modificações.</p>
+
+<p>Voltando ao nosso exemplo &#8220;Hello Word&#8221;, vamos adicionar os arquivos, mas antes, podemos usar <code>git status</code> para ver como está o nosso projeto.</p>
+
+<pre><code>$ git status -s
+?? README
+?? hello.rb
+</code></pre>
+
+<p>Neste momento temos dois arquivos &#8220;untracked&#8221;, ou seja, ainda não estão sendo &#8220;tracked&#8221;. Vamos adicioná-los.</p>
+
+<pre><code>$ git add README hello.rb
+</code></pre>
+
+<p>Também é comum adicionar recursivamente todos arquivos:</p>
+
+<pre><code>$ git add .
+</code></pre>
+
+<p>Se executarmos o <code>git status</code> novamente veremos que os arquivos foram adicionados.</p>
+
+<pre><code>$ git status -s
+A  README
+A  hello.rb
+</code></pre>
+
+<p>OK, vamos editar um dos arquivos e executar o <code>git status</code> de para ver o que acontece.</p>
+
+<pre><code>$ echo "Alterei o leia isso." &gt; README
+$ git status -s
+AM README
+A  hello.rb
+</code></pre>
+
+<p>O status &#8220;AM&#8221; significa que o arquivo foi modificado desde a última vez que foi adicionado.<br/>
+Isso significa que se comitarmos agora, nós gravaremos a versão do arquivo que foi adicionado pela última vez, e não a versão que está no seu disco.</p>
+
+<h3>git commit - grava a versão do que foi adicionado na &#8220;staging area&#8221;</h3>
+
+<p>Agora que você organizou o conteúdo com o comando <code>git add</code>, execute <code>git commit</code> para realmente gravar sua versão.</p>
+
+<pre><code>$ git add .
+$ git status -s
+A  README
+A  hello.rb
+$ git commit -m "Primeiro commit"
+[master (root-commit) f0c26a6] Primeiro commit
+ 2 files changed, 6 insertions(+), 0 deletions(-)
+ create mode 100644 README
+ create mode 100644 hello.rb
+</code></pre>
+
+<p>Vamos alterar o README e comitar sua nova versão.</p>
+
+<pre><code>$ echo "Leia isso." &gt; README
+$ git st -s
+ M README
+$ git add .
+$ git ci -m "alterado o README"
+[master e4bdd45] alterado o README
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+</code></pre>
+
+<p>Agora um pequeno exemplo de como reverter algumas mudanças com o <code>git checkout</code>.</p>
+
+<p>Faça alguma alteração no README:</p>
+
+<pre><code>$ echo "Agora leia isso aqui." &gt; README
+$ git st -s
+ M README
+</code></pre>
+
+<p>Então execute este comando:</p>
+
+<pre><code>$ git checkout README
+</code></pre>
+
+<p>Abra seu editor de texto e veja que README voltou para última vez que foi comitado.</p>
+
+<pre><code>$ cat README 
+Leia isso.
+</code></pre>
+
+<hr />
+
+<p>Estes quatro simples comandos, <code>git init</code>, <code>git add</code>, <code>git commit</code> e <code>git checkout</code> permitem que você crie um histórico do seu código e remova todos os tipos de riscos em seu fluxo de desenvolvimento.</p>
+
+<hr />
+
+<p>Agora vamos para o <a href="/blog/2011/10/01/repositorio-remoto/">repositório remoto</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Thiago Lagden</span></span>
+
+      
+
+
+
+
+  
+
+<time datetime="2011-10-01T15:36:00-03:00" pubdate>Oct 1<span>st</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/basic/'>basic</a>, <a class='category' href='/blog/categories/git-add/'>git add</a>, <a class='category' href='/blog/categories/git-checkout/'>git checkout</a>, <a class='category' href='/blog/categories/git-commit/'>git commit</a>, <a class='category' href='/blog/categories/git-init/'>git init</a>, <a class='category' href='/blog/categories/git-status/'>git status</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://lagden.github.com/blog/2011/10/01/git-para-iniciantes/" data-via="thiagolagden" data-counturl="http://lagden.github.com/blog/2011/10/01/git-para-iniciantes/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/10/01/gerando-uma-chave-ssh/" title="Previous Post: Gerando uma chave SSH">&laquo; Gerando uma chave SSH</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/10/01/repositorio-remoto/" title="next Post: Repositório remoto">Repositório remoto &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/10/01/repositorio-remoto/">Repositório remoto</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/01/gerando-uma-chave-ssh/">Gerando uma chave SSH</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/01/instalando-git/">Instalando Git</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/117052370664889070330?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("thiagolagden", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/thiagolagden" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @thiagolagden</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Thiago Lagden -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

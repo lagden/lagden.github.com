@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>X-Source</title>
+  <title>Category: key - X-Source</title>
   <meta name="author" content="Thiago Lagden">
 
   
-  <meta name="description" content="Trabalhar com um repositório remoto é uma ótima maneira de colaborar o seu código com outros desenvolvedores, trabalhar em várias máquinas e fazer &hellip;">
+  <meta name="description" content="Category: key">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lagden.github.com">
+  <link rel="canonical" href="http://lagden.github.comblog/categories/key">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -75,95 +75,40 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article role="article">
   
-  
-  
-    <article>
-      
   <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/01/repositorio-remoto/">Repositório remoto</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-  
-
-<time datetime="2011-10-01T16:36:00-03:00" pubdate>Oct 1<span>st</span>, 2011</time>
-        
-      </p>
+    <h1 class="entry-title">Category: key</h1>
     
   </header>
+  
+  <div id="blog-archives" class="category">
 
 
-  <div class="entry-content"><blockquote><p>Trabalhar com um repositório remoto é uma ótima maneira de colaborar o seu código com outros desenvolvedores, trabalhar em várias máquinas e fazer backup de seu código fonte.<br/>
-Um repositório remoto é simplesmente outro repositório, normalmente em outro servidor, que você pode empurrar (<code>git push</code>) os seus commits e puxar (<code>git pull</code>) commits dos outros.</p></blockquote>
 
-<h3>Adicionando um servidor remoto</h3>
+  
+  <h2>2011</h2>
 
-<hr />
+<article>
+  
+<h1><a href="/blog/2011/10/01/gerando-uma-chave-ssh/">Gerando uma chave SSH</a></h1>
+<time datetime="2011-10-01T14:36:00-03:00" pubdate><span class='month'>Oct</span> <span class='day'>01</span> <span class='year'>2011</span></time>
 
-<p>Utilizando o projeto &#8220;Hello Word&#8221; criado no artigo <a href="/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>, vamos adicionar um repositório remoto em nossa &#8220;working tree&#8221; local.</p>
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/key/'>key</a>, <a class='category' href='/blog/categories/rsa/'>rsa</a>, <a class='category' href='/blog/categories/ssh/'>ssh</a></span>
+</footer>
 
-<blockquote><p><strong>Atenção:</strong> Crie um repositório no seu servidor remoto com o commando <code>git init --bare</code></p></blockquote>
 
-<pre><code>$ ssh user@server.com
-user@server.com's password: 
-Last login: Fri Sep 30 19:07:03 2011 from 177.32.53.79
-user@server.com [~]# mkdir -p git/hello.git
-user@server.com [~]# cd git/hello.git
-user@server.com [~]# git init --bare
-</code></pre>
+</article>
 
-<p>Na sua máquina local:</p>
-
-<pre><code>$ cd ~/my_app
-$ git remote add origin ssh://user@server.com/~/git/hello.git
-</code></pre>
-
-<blockquote><p>Você pode ter vários controles remotos e dar nomes diferentes para cada, como &#8220;palco&#8221; ou &#8220;projeto&#8221;.<br/>
-Veja todos os seus controles remotos com <code>git remote</code> ou <code>git remote -v</code>.</p></blockquote>
-
-<h3>Empurre seus commits para o repositório remoto</h3>
-
-<pre><code>$ git push -u origin master
-Counting objects: 3, done. 
-Writing objects: 100% (3/3), 242 bytes, done. 
-Total 3 (delta 0), reused 0 (delta 0) 
-Unpacking objects: 100% (3/3), done.
-To ssh://user@server.com/~/git/hello.git
- * [new branch]      master -&gt; master
-</code></pre>
-
-<h3>Puxe as alterações do repositório de origem</h3>
-
-<p>É uma boa prática puxar (<code>git pull</code>) antes de empurrar (<code>git push</code>), assegurando que você tenha o código mais recente.</p>
-
-<pre><code>$ git pull origin master
-</code></pre>
-
-<p>Isso irá sincronizar seu repositório local com o repositório remoto.<br/>
-Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às vezes pode ter alguns conflitos que deverão ser arrumados manualmente.</p>
 </div>
-  
-  
 
-
-    </article>
   
-  <div class="pagination">
-    
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+</article>
+
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -203,7 +148,7 @@ Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -219,6 +164,7 @@ Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às
 
   
 </aside>
+
 
     </div>
   </div>

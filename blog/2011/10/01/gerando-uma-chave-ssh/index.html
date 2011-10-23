@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>X-Source</title>
+  <title>Gerando uma chave SSH - X-Source</title>
   <meta name="author" content="Thiago Lagden">
 
   
-  <meta name="description" content="Trabalhar com um repositório remoto é uma ótima maneira de colaborar o seu código com outros desenvolvedores, trabalhar em várias máquinas e fazer &hellip;">
+  <meta name="description" content="Usamos as chaves SSH para estabelecer uma conexão segura entre seu computador e o servidor Git. Configurá-los é bastante fácil, mas envolve uma série &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lagden.github.com">
+  <link rel="canonical" href="http://lagden.github.com/blog/2011/10/01/gerando-uma-chave-ssh">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -75,15 +75,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/10/01/repositorio-remoto/">Repositório remoto</a></h1>
+      <h1 class="entry-title">Gerando uma chave SSH</h1>
     
     
       <p class="meta">
@@ -94,76 +91,146 @@
 
   
 
-<time datetime="2011-10-01T16:36:00-03:00" pubdate>Oct 1<span>st</span>, 2011</time>
+<time datetime="2011-10-01T14:36:00-03:00" pubdate>Oct 1<span>st</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><blockquote><p>Trabalhar com um repositório remoto é uma ótima maneira de colaborar o seu código com outros desenvolvedores, trabalhar em várias máquinas e fazer backup de seu código fonte.<br/>
-Um repositório remoto é simplesmente outro repositório, normalmente em outro servidor, que você pode empurrar (<code>git push</code>) os seus commits e puxar (<code>git pull</code>) commits dos outros.</p></blockquote>
+<div class="entry-content"><blockquote><p>Usamos as chaves SSH para estabelecer uma conexão segura entre seu computador e o servidor Git. Configurá-los é bastante fácil, mas envolve uma série de etapas.</p></blockquote>
 
-<h3>Adicionando um servidor remoto</h3>
+<p>Se você utiliza Windows abra o GitBash.</p>
 
-<hr />
+<h3>Etapa 1. Verifique se há chaves SSH.</h3>
 
-<p>Utilizando o projeto &#8220;Hello Word&#8221; criado no artigo <a href="/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>, vamos adicionar um repositório remoto em nossa &#8220;working tree&#8221; local.</p>
+<p>Você tem um par de chaves existente? Você pode pular para a <strong>Etapa 4</strong>.</p>
 
-<blockquote><p><strong>Atenção:</strong> Crie um repositório no seu servidor remoto com o commando <code>git init --bare</code></p></blockquote>
+<p>Verifique se há chaves SSH no seu computador:</p>
+
+<pre><code>$ cd ~/.ssh
+</code></pre>
+
+<p>Se aparecer &#8220;Nenhum arquivo ou diretório&#8221; pule para o <strong>Etapa 3</strong>. Caso contrário, continue com a próxima etapa.</p>
+
+<h3>Etapa 2. Faça o backup e remova a chave SSH existente.</h3>
+
+<pre><code>$ ls
+config  id_rsa  id_rsa.pub  known_hosts
+$ mkdir key_backup
+$ cp id_rsa* key_backup
+$ rm id_rsa*
+</code></pre>
+
+<h3>Etapa 3. Gerando uma nova chave SSH.</h3>
+
+<p>Para gerar uma chave SSH nova, insira o código abaixo e apenas pressione <strong>enter</strong>.</p>
+
+<pre><code>$ ssh-keygen -t rsa -C "email@exemplo.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/your_user_directory/.ssh/id_rsa):&lt;press enter&gt;
+Enter passphrase (empty for no passphrase):&lt;enter a passphrase&gt;
+Enter same passphrase again:&lt;enter passphrase again&gt;
+</code></pre>
+
+<p>No final deverá aparecer algo assim:</p>
+
+<pre><code>Your identification has been saved in /Users/your_user_directory/.ssh/id_rsa.
+Your public key has been saved in /Users/your_user_directory/.ssh/id_rsa.pub.
+The key fingerprint is:
+01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db email@exemplo.com
+The key's randomart image is:
++--[ RSA 2048]----+
+|     .+   +      |
+|       = o O .   |
+|        = * *    |
+|       o = +     |
+|      o S .      |
+|     o o =       |
+|      o . E      |
+|                 |
+|                 |
++-----------------+
+</code></pre>
+
+<h3>Etapa 4. Adicione sua chave SSH no servidor Git.</h3>
+
+<pre><code>$ cat ~/.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvP9QeNCEHrCdRKSlYmfY2NdBnvsK7M0lD8GQ4SLk+zc3hMAOayNw9aBsqdkEkIqjJRGKDm3NSxSlT1Q9mMCd21+b76OGswcaHBxrzxWDuyJSsKFVPKrDVUpIfYDJWqB6pdqg15HVH4LWGWvVmRRZSLVTYI6QBT8yGd4U2YxY+aF8azi8zIR0+hWQKNjDO3xyXRlLuc3Z6HBu4KOX6d8wqpO6DWuunpONj8/2ayJRbMBt2p72oBmDG3WsKQK6Nox0OSxoPK1ndXjWObFcMWx84q7w3CHTD8OrkYvdSqTo5V+DJwEAheCJqYWPXZV/MXnhYb1gKy0qPVj5uCyfqHXRHQ== email@exemplo.com
+</code></pre>
+
+<p>Acesse seu servidor Git e edite o arquivo authorized_keys.</p>
 
 <pre><code>$ ssh user@server.com
 user@server.com's password: 
 Last login: Fri Sep 30 19:07:03 2011 from 177.32.53.79
-user@server.com [~]# mkdir -p git/hello.git
-user@server.com [~]# cd git/hello.git
-user@server.com [~]# git init --bare
+user@server.com [~]# vim .ssh/authorized_keys
 </code></pre>
 
-<p>Na sua máquina local:</p>
+<p>Adicione sua chave e salve o arquivo.</p>
 
-<pre><code>$ cd ~/my_app
-$ git remote add origin ssh://user@server.com/~/git/hello.git
-</code></pre>
+<hr />
 
-<blockquote><p>Você pode ter vários controles remotos e dar nomes diferentes para cada, como &#8220;palco&#8221; ou &#8220;projeto&#8221;.<br/>
-Veja todos os seus controles remotos com <code>git remote</code> ou <code>git remote -v</code>.</p></blockquote>
+<p>Caso esteja usando o <a href="http://github.com">GitHub</a> como servidor, então <a href="http://help.github.com/mac-set-up-git/">clique aqui</a>.</p>
 
-<h3>Empurre seus commits para o repositório remoto</h3>
+<hr />
 
-<pre><code>$ git push -u origin master
-Counting objects: 3, done. 
-Writing objects: 100% (3/3), 242 bytes, done. 
-Total 3 (delta 0), reused 0 (delta 0) 
-Unpacking objects: 100% (3/3), done.
-To ssh://user@server.com/~/git/hello.git
- * [new branch]      master -&gt; master
-</code></pre>
-
-<h3>Puxe as alterações do repositório de origem</h3>
-
-<p>É uma boa prática puxar (<code>git pull</code>) antes de empurrar (<code>git push</code>), assegurando que você tenha o código mais recente.</p>
-
-<pre><code>$ git pull origin master
-</code></pre>
-
-<p>Isso irá sincronizar seu repositório local com o repositório remoto.<br/>
-Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às vezes pode ter alguns conflitos que deverão ser arrumados manualmente.</p>
+<p>É isso aí! Você está pronto para usar o git. Continue em <a href="/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>.</p>
 </div>
-  
-  
 
 
-    </article>
+  <footer>
+    <p class="meta">
+      
   
-  <div class="pagination">
+
+<span class="byline author vcard">Posted by <span class="fn">Thiago Lagden</span></span>
+
+      
+
+
+
+
+  
+
+<time datetime="2011-10-01T14:36:00-03:00" pubdate>Oct 1<span>st</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/key/'>key</a>, <a class='category' href='/blog/categories/rsa/'>rsa</a>, <a class='category' href='/blog/categories/ssh/'>ssh</a>
+  
+</span>
+
+
+    </p>
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://lagden.github.com/blog/2011/10/01/gerando-uma-chave-ssh/" data-via="thiagolagden" data-counturl="http://lagden.github.com/blog/2011/10/01/gerando-uma-chave-ssh/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/10/01/instalando-git/" title="Previous Post: Instalando Git">&laquo; Instalando Git</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/10/01/git-para-iniciantes/" title="next Post: Git para iniciantes">Git para iniciantes &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -203,7 +270,7 @@ Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -219,6 +286,7 @@ Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às
 
   
 </aside>
+
 
     </div>
   </div>

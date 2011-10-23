@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[X-Source]]></title>
+  <link href="http://lagden.github.com/atom.xml" rel="self"/>
+  <link href="http://lagden.github.com/"/>
+  <updated>2011-10-23T03:38:50-02:00</updated>
+  <id>http://lagden.github.com/</id>
+  <author>
+    <name><![CDATA[Thiago Lagden]]></name>
+    <email><![CDATA[lagden@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Repositório remoto]]></title>
+    <link href="http://lagden.github.com/blog/2011/10/01/repositorio-remoto/"/>
+    <updated>2011-10-01T16:36:00-03:00</updated>
+    <id>http://lagden.github.com/blog/2011/10/01/repositorio-remoto</id>
+    <content type="html"><![CDATA[<blockquote><p>Trabalhar com um repositório remoto é uma ótima maneira de colaborar o seu código com outros desenvolvedores, trabalhar em várias máquinas e fazer backup de seu código fonte.<br/>
+Um repositório remoto é simplesmente outro repositório, normalmente em outro servidor, que você pode empurrar (<code>git push</code>) os seus commits e puxar (<code>git pull</code>) commits dos outros.</p></blockquote>
+
+<h3>Adicionando um servidor remoto</h3>
+
+<hr />
+
+<p>Utilizando o projeto &#8220;Hello Word&#8221; criado no artigo <a href="http://lagden.github.com/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>, vamos adicionar um repositório remoto em nossa &#8220;working tree&#8221; local.</p>
+
+<blockquote><p><strong>Atenção:</strong> Crie um repositório no seu servidor remoto com o commando <code>git init --bare</code></p></blockquote>
+
+<pre><code>$ ssh user@server.com
+user@server.com's password: 
+Last login: Fri Sep 30 19:07:03 2011 from 177.32.53.79
+user@server.com [~]# mkdir -p git/hello.git
+user@server.com [~]# cd git/hello.git
+user@server.com [~]# git init --bare
+</code></pre>
+
+<p>Na sua máquina local:</p>
+
+<pre><code>$ cd ~/my_app
+$ git remote add origin ssh://user@server.com/~/git/hello.git
+</code></pre>
+
+<blockquote><p>Você pode ter vários controles remotos e dar nomes diferentes para cada, como &#8220;palco&#8221; ou &#8220;projeto&#8221;.<br/>
+Veja todos os seus controles remotos com <code>git remote</code> ou <code>git remote -v</code>.</p></blockquote>
+
+<h3>Empurre seus commits para o repositório remoto</h3>
+
+<pre><code>$ git push -u origin master
+Counting objects: 3, done. 
+Writing objects: 100% (3/3), 242 bytes, done. 
+Total 3 (delta 0), reused 0 (delta 0) 
+Unpacking objects: 100% (3/3), done.
+To ssh://user@server.com/~/git/hello.git
+ * [new branch]      master -&gt; master
+</code></pre>
+
+<h3>Puxe as alterações do repositório de origem</h3>
+
+<p>É uma boa prática puxar (<code>git pull</code>) antes de empurrar (<code>git push</code>), assegurando que você tenha o código mais recente.</p>
+
+<pre><code>$ git pull origin master
+</code></pre>
+
+<p>Isso irá sincronizar seu repositório local com o repositório remoto.<br/>
+Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às vezes pode ter alguns conflitos que deverão ser arrumados manualmente.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Git para iniciantes]]></title>
+    <link href="http://lagden.github.com/blog/2011/10/01/git-para-iniciantes/"/>
+    <updated>2011-10-01T15:36:00-03:00</updated>
+    <id>http://lagden.github.com/blog/2011/10/01/git-para-iniciantes</id>
+    <content type="html"><![CDATA[<blockquote><p>Este artigo explica como usar o <strong>git</strong> via linha de comando.<br/>
+Há alguns GUI (Interface Gráfica) para git, mas a maioria dos desenvolvedores usam a linha de comando juntamente com um visualizador de GUI para ser mais eficiente.</p></blockquote>
+
+<h2>O Básico</h2>
+
+<hr />
+
+<p>Se você ainda não instalou git em sua máquina, você deve ler o artigo <a href="http://lagden.github.com/blog/2011/10/01/instalando-git/">Instalando o Git</a>.</p>
+
+<h3>git init - inicializa um repositório Git</h3>
+
+<p>Para criar um repositório em um diretório com arquivos existentes, você pode simplesmente executar <code>git init</code> no diretório.<br/>
+Por exemplo, digamos que temos um diretório com alguns arquivos nele, assim:</p>
+
+<pre><code>$ cd ~/my_app
+$ ls
+README   hello.rb
+</code></pre>
+
+<p>Este é o projeto &#8220;Hello Word&#8221; que estamos escrevendo de exemplo.<br/>
+Até agora só temos dois arquivos, mas já é um começo para iniciar o controle de versão com git.</p>
+
+<pre><code>$ git init
+Initialized empty Git repository in ~/my_app/.git/
+</code></pre>
+
+<p>Agora você pode ver que há um subdiretório .git em seu projeto.<br/>
+Este é o seu repositório <strong>Git</strong>, onde todos os passos do seu projeto serão armazenados.</p>
+
+<pre><code>$ ls -a
+.        ..       .git     README   hello.rb
+</code></pre>
+
+<h3>git add - adiciona conteúdo do arquivo para a &#8220;staging area&#8221;</h3>
+
+<p>No Git, você tem que adicionar o conteúdo do arquivo para &#8220;staging area&#8221; antes de comitá-los.<br/>
+Você deverá executar <code>git add</code> para adicioná-lo na sua &#8220;staging area&#8221;, mesmo se o arquivo já está &#8220;tracked&#8221; - ou seja, estava no seu último &#8220;commit&#8221; - precisamos chamar <code>git add</code> para adicionar as novas modificações.</p>
+
+<p>Voltando ao nosso exemplo &#8220;Hello Word&#8221;, vamos adicionar os arquivos, mas antes, podemos usar <code>git status</code> para ver como está o nosso projeto.</p>
+
+<pre><code>$ git status -s
+?? README
+?? hello.rb
+</code></pre>
+
+<p>Neste momento temos dois arquivos &#8220;untracked&#8221;, ou seja, ainda não estão sendo &#8220;tracked&#8221;. Vamos adicioná-los.</p>
+
+<pre><code>$ git add README hello.rb
+</code></pre>
+
+<p>Também é comum adicionar recursivamente todos arquivos:</p>
+
+<pre><code>$ git add .
+</code></pre>
+
+<p>Se executarmos o <code>git status</code> novamente veremos que os arquivos foram adicionados.</p>
+
+<pre><code>$ git status -s
+A  README
+A  hello.rb
+</code></pre>
+
+<p>OK, vamos editar um dos arquivos e executar o <code>git status</code> de para ver o que acontece.</p>
+
+<pre><code>$ echo "Alterei o leia isso." &gt; README
+$ git status -s
+AM README
+A  hello.rb
+</code></pre>
+
+<p>O status &#8220;AM&#8221; significa que o arquivo foi modificado desde a última vez que foi adicionado.<br/>
+Isso significa que se comitarmos agora, nós gravaremos a versão do arquivo que foi adicionado pela última vez, e não a versão que está no seu disco.</p>
+
+<h3>git commit - grava a versão do que foi adicionado na &#8220;staging area&#8221;</h3>
+
+<p>Agora que você organizou o conteúdo com o comando <code>git add</code>, execute <code>git commit</code> para realmente gravar sua versão.</p>
+
+<pre><code>$ git add .
+$ git status -s
+A  README
+A  hello.rb
+$ git commit -m "Primeiro commit"
+[master (root-commit) f0c26a6] Primeiro commit
+ 2 files changed, 6 insertions(+), 0 deletions(-)
+ create mode 100644 README
+ create mode 100644 hello.rb
+</code></pre>
+
+<p>Vamos alterar o README e comitar sua nova versão.</p>
+
+<pre><code>$ echo "Leia isso." &gt; README
+$ git st -s
+ M README
+$ git add .
+$ git ci -m "alterado o README"
+[master e4bdd45] alterado o README
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+</code></pre>
+
+<p>Agora um pequeno exemplo de como reverter algumas mudanças com o <code>git checkout</code>.</p>
+
+<p>Faça alguma alteração no README:</p>
+
+<pre><code>$ echo "Agora leia isso aqui." &gt; README
+$ git st -s
+ M README
+</code></pre>
+
+<p>Então execute este comando:</p>
+
+<pre><code>$ git checkout README
+</code></pre>
+
+<p>Abra seu editor de texto e veja que README voltou para última vez que foi comitado.</p>
+
+<pre><code>$ cat README 
+Leia isso.
+</code></pre>
+
+<hr />
+
+<p>Estes quatro simples comandos, <code>git init</code>, <code>git add</code>, <code>git commit</code> e <code>git checkout</code> permitem que você crie um histórico do seu código e remova todos os tipos de riscos em seu fluxo de desenvolvimento.</p>
+
+<hr />
+
+<p>Agora vamos para o <a href="http://lagden.github.com/blog/2011/10/01/repositorio-remoto/">repositório remoto</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Gerando uma chave SSH]]></title>
+    <link href="http://lagden.github.com/blog/2011/10/01/gerando-uma-chave-ssh/"/>
+    <updated>2011-10-01T14:36:00-03:00</updated>
+    <id>http://lagden.github.com/blog/2011/10/01/gerando-uma-chave-ssh</id>
+    <content type="html"><![CDATA[<blockquote><p>Usamos as chaves SSH para estabelecer uma conexão segura entre seu computador e o servidor Git. Configurá-los é bastante fácil, mas envolve uma série de etapas.</p></blockquote>
+
+<p>Se você utiliza Windows abra o GitBash.</p>
+
+<h3>Etapa 1. Verifique se há chaves SSH.</h3>
+
+<p>Você tem um par de chaves existente? Você pode pular para a <strong>Etapa 4</strong>.</p>
+
+<p>Verifique se há chaves SSH no seu computador:</p>
+
+<pre><code>$ cd ~/.ssh
+</code></pre>
+
+<p>Se aparecer &#8220;Nenhum arquivo ou diretório&#8221; pule para o <strong>Etapa 3</strong>. Caso contrário, continue com a próxima etapa.</p>
+
+<h3>Etapa 2. Faça o backup e remova a chave SSH existente.</h3>
+
+<pre><code>$ ls
+config  id_rsa  id_rsa.pub  known_hosts
+$ mkdir key_backup
+$ cp id_rsa* key_backup
+$ rm id_rsa*
+</code></pre>
+
+<h3>Etapa 3. Gerando uma nova chave SSH.</h3>
+
+<p>Para gerar uma chave SSH nova, insira o código abaixo e apenas pressione <strong>enter</strong>.</p>
+
+<pre><code>$ ssh-keygen -t rsa -C "email@exemplo.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/your_user_directory/.ssh/id_rsa):&lt;press enter&gt;
+Enter passphrase (empty for no passphrase):&lt;enter a passphrase&gt;
+Enter same passphrase again:&lt;enter passphrase again&gt;
+</code></pre>
+
+<p>No final deverá aparecer algo assim:</p>
+
+<pre><code>Your identification has been saved in /Users/your_user_directory/.ssh/id_rsa.
+Your public key has been saved in /Users/your_user_directory/.ssh/id_rsa.pub.
+The key fingerprint is:
+01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db email@exemplo.com
+The key's randomart image is:
++--[ RSA 2048]----+
+|     .+   +      |
+|       = o O .   |
+|        = * *    |
+|       o = +     |
+|      o S .      |
+|     o o =       |
+|      o . E      |
+|                 |
+|                 |
++-----------------+
+</code></pre>
+
+<h3>Etapa 4. Adicione sua chave SSH no servidor Git.</h3>
+
+<pre><code>$ cat ~/.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvP9QeNCEHrCdRKSlYmfY2NdBnvsK7M0lD8GQ4SLk+zc3hMAOayNw9aBsqdkEkIqjJRGKDm3NSxSlT1Q9mMCd21+b76OGswcaHBxrzxWDuyJSsKFVPKrDVUpIfYDJWqB6pdqg15HVH4LWGWvVmRRZSLVTYI6QBT8yGd4U2YxY+aF8azi8zIR0+hWQKNjDO3xyXRlLuc3Z6HBu4KOX6d8wqpO6DWuunpONj8/2ayJRbMBt2p72oBmDG3WsKQK6Nox0OSxoPK1ndXjWObFcMWx84q7w3CHTD8OrkYvdSqTo5V+DJwEAheCJqYWPXZV/MXnhYb1gKy0qPVj5uCyfqHXRHQ== email@exemplo.com
+</code></pre>
+
+<p>Acesse seu servidor Git e edite o arquivo authorized_keys.</p>
+
+<pre><code>$ ssh user@server.com
+user@server.com's password: 
+Last login: Fri Sep 30 19:07:03 2011 from 177.32.53.79
+user@server.com [~]# vim .ssh/authorized_keys
+</code></pre>
+
+<p>Adicione sua chave e salve o arquivo.</p>
+
+<hr />
+
+<p>Caso esteja usando o <a href="http://github.com">GitHub</a> como servidor, então <a href="http://help.github.com/mac-set-up-git/">clique aqui</a>.</p>
+
+<hr />
+
+<p>É isso aí! Você está pronto para usar o git. Continue em <a href="http://lagden.github.com/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Instalando Git]]></title>
+    <link href="http://lagden.github.com/blog/2011/10/01/instalando-git/"/>
+    <updated>2011-10-01T13:36:00-03:00</updated>
+    <id>http://lagden.github.com/blog/2011/10/01/instalando-git</id>
+    <content type="html"><![CDATA[<h2>Mac OS X</h2>
+
+<hr />
+
+<p>Se você tem o <a href="http://mxcl.github.com/homebrew/" title="Homebrew">Homebrew</a> instalado, você conhece o caminho:</p>
+
+<pre><code>$ brew install git
+</code></pre>
+
+<p>Você também pode fazer o download do <a href="http://code.google.com/p/git-osx-installer/downloads/list?can=3" title="Instalador Git">instalador pré-compilado</a> e instalar o git assim como a maioria das aplicações.</p>
+
+<h2>Linux / Mac</h2>
+
+<hr />
+
+<p>Se você é um geek, então baixe o <a href="http://git-scm.com/download">código fonte</a> e instale o git.</p>
+
+<h2>Windows</h2>
+
+<hr />
+
+<p>O mais popular jeito de rodar o git no Windows é <a href="http://git-scm.com/download">mysysgit</a></p>
+
+<h2>Global settings</h2>
+
+<hr />
+
+<p>Depois de tudo instalado é a hora de definir algumas configurações globais:</p>
+
+<pre><code>$ git config --global user.name "Nome Sobrenome"
+$ git config --global user.email "email@exemplo.com"
+</code></pre>
+
+<p>Se você pretende trabalhar com pessoas de diferentes <strong>sistemas operacionais</strong> todos devem definir a mesma configuração para evitar problemas maiores com o final de linha (<a href="http://help.github.com/dealing-with-lineendings/">mais sobre o porquê</a>):</p>
+
+<pre><code>$ git config --global core.autocrlf input
+</code></pre>
+
+<h3>Plus (Global settings)</h3>
+
+<p>Alguns atalhos para facilitar a sua vida:</p>
+
+<pre><code>$ git config --global alias.st status
+$ git config --global alias.ci commit
+$ git config --global alias.co checkout
+$ git config --global alias.br branch
+</code></pre>
+
+<p>Deixe tudo colorido:</p>
+
+<pre><code>git config --global color.branch auto
+git config --global color.diff auto
+git config --global color.interactive auto
+git config --global color.status auto
+</code></pre>
+
+<hr />
+
+<p>O próximo passo é gerar uma chave SSH. Continue em <a href="http://lagden.github.com/blog/2011/10/01/gerando-uma-chave-ssh/">Gerando uma chave SSH</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

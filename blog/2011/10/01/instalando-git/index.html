@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>X-Source</title>
+  <title>Instalando Git - X-Source</title>
   <meta name="author" content="Thiago Lagden">
 
   
-  <meta name="description" content="Trabalhar com um repositório remoto é uma ótima maneira de colaborar o seu código com outros desenvolvedores, trabalhar em várias máquinas e fazer &hellip;">
+  <meta name="description" content="Mac OS X Se você tem o Homebrew instalado, você conhece o caminho: $ brew install git Você também pode fazer o download do instalador pré-compilado e &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lagden.github.com">
+  <link rel="canonical" href="http://lagden.github.com/blog/2011/10/01/instalando-git">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -75,15 +75,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/10/01/repositorio-remoto/">Repositório remoto</a></h1>
+      <h1 class="entry-title">Instalando Git</h1>
     
     
       <p class="meta">
@@ -94,76 +91,125 @@
 
   
 
-<time datetime="2011-10-01T16:36:00-03:00" pubdate>Oct 1<span>st</span>, 2011</time>
+<time datetime="2011-10-01T13:36:00-03:00" pubdate>Oct 1<span>st</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><blockquote><p>Trabalhar com um repositório remoto é uma ótima maneira de colaborar o seu código com outros desenvolvedores, trabalhar em várias máquinas e fazer backup de seu código fonte.<br/>
-Um repositório remoto é simplesmente outro repositório, normalmente em outro servidor, que você pode empurrar (<code>git push</code>) os seus commits e puxar (<code>git pull</code>) commits dos outros.</p></blockquote>
-
-<h3>Adicionando um servidor remoto</h3>
+<div class="entry-content"><h2>Mac OS X</h2>
 
 <hr />
 
-<p>Utilizando o projeto &#8220;Hello Word&#8221; criado no artigo <a href="/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>, vamos adicionar um repositório remoto em nossa &#8220;working tree&#8221; local.</p>
+<p>Se você tem o <a href="http://mxcl.github.com/homebrew/" title="Homebrew">Homebrew</a> instalado, você conhece o caminho:</p>
 
-<blockquote><p><strong>Atenção:</strong> Crie um repositório no seu servidor remoto com o commando <code>git init --bare</code></p></blockquote>
-
-<pre><code>$ ssh user@server.com
-user@server.com's password: 
-Last login: Fri Sep 30 19:07:03 2011 from 177.32.53.79
-user@server.com [~]# mkdir -p git/hello.git
-user@server.com [~]# cd git/hello.git
-user@server.com [~]# git init --bare
+<pre><code>$ brew install git
 </code></pre>
 
-<p>Na sua máquina local:</p>
+<p>Você também pode fazer o download do <a href="http://code.google.com/p/git-osx-installer/downloads/list?can=3" title="Instalador Git">instalador pré-compilado</a> e instalar o git assim como a maioria das aplicações.</p>
 
-<pre><code>$ cd ~/my_app
-$ git remote add origin ssh://user@server.com/~/git/hello.git
+<h2>Linux / Mac</h2>
+
+<hr />
+
+<p>Se você é um geek, então baixe o <a href="http://git-scm.com/download">código fonte</a> e instale o git.</p>
+
+<h2>Windows</h2>
+
+<hr />
+
+<p>O mais popular jeito de rodar o git no Windows é <a href="http://git-scm.com/download">mysysgit</a></p>
+
+<h2>Global settings</h2>
+
+<hr />
+
+<p>Depois de tudo instalado é a hora de definir algumas configurações globais:</p>
+
+<pre><code>$ git config --global user.name "Nome Sobrenome"
+$ git config --global user.email "email@exemplo.com"
 </code></pre>
 
-<blockquote><p>Você pode ter vários controles remotos e dar nomes diferentes para cada, como &#8220;palco&#8221; ou &#8220;projeto&#8221;.<br/>
-Veja todos os seus controles remotos com <code>git remote</code> ou <code>git remote -v</code>.</p></blockquote>
+<p>Se você pretende trabalhar com pessoas de diferentes <strong>sistemas operacionais</strong> todos devem definir a mesma configuração para evitar problemas maiores com o final de linha (<a href="http://help.github.com/dealing-with-lineendings/">mais sobre o porquê</a>):</p>
 
-<h3>Empurre seus commits para o repositório remoto</h3>
-
-<pre><code>$ git push -u origin master
-Counting objects: 3, done. 
-Writing objects: 100% (3/3), 242 bytes, done. 
-Total 3 (delta 0), reused 0 (delta 0) 
-Unpacking objects: 100% (3/3), done.
-To ssh://user@server.com/~/git/hello.git
- * [new branch]      master -&gt; master
+<pre><code>$ git config --global core.autocrlf input
 </code></pre>
 
-<h3>Puxe as alterações do repositório de origem</h3>
+<h3>Plus (Global settings)</h3>
 
-<p>É uma boa prática puxar (<code>git pull</code>) antes de empurrar (<code>git push</code>), assegurando que você tenha o código mais recente.</p>
+<p>Alguns atalhos para facilitar a sua vida:</p>
 
-<pre><code>$ git pull origin master
+<pre><code>$ git config --global alias.st status
+$ git config --global alias.ci commit
+$ git config --global alias.co checkout
+$ git config --global alias.br branch
 </code></pre>
 
-<p>Isso irá sincronizar seu repositório local com o repositório remoto.<br/>
-Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às vezes pode ter alguns conflitos que deverão ser arrumados manualmente.</p>
+<p>Deixe tudo colorido:</p>
+
+<pre><code>git config --global color.branch auto
+git config --global color.diff auto
+git config --global color.interactive auto
+git config --global color.status auto
+</code></pre>
+
+<hr />
+
+<p>O próximo passo é gerar uma chave SSH. Continue em <a href="/blog/2011/10/01/gerando-uma-chave-ssh/">Gerando uma chave SSH</a>.</p>
 </div>
-  
-  
 
 
-    </article>
+  <footer>
+    <p class="meta">
+      
   
-  <div class="pagination">
+
+<span class="byline author vcard">Posted by <span class="fn">Thiago Lagden</span></span>
+
+      
+
+
+
+
+  
+
+<time datetime="2011-10-01T13:36:00-03:00" pubdate>Oct 1<span>st</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/download/'>download</a>, <a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/install/'>install</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+  
+</span>
+
+
+    </p>
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://lagden.github.com/blog/2011/10/01/instalando-git/" data-via="thiagolagden" data-counturl="http://lagden.github.com/blog/2011/10/01/instalando-git/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/10/01/gerando-uma-chave-ssh/" title="next Post: Gerando uma chave SSH">Gerando uma chave SSH &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -203,7 +249,7 @@ Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -219,6 +265,7 @@ Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às
 
   
 </aside>
+
 
     </div>
   </div>

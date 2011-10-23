@@ -9,7 +9,8 @@
   <meta name="author" content="Thiago Lagden">
 
   
-  <meta name="description" content="Trabalhar com um repositório remoto é uma ótima maneira de colaborar o seu código com outros desenvolvedores, trabalhar em várias máquinas e fazer &hellip;">
+  <meta name="description" content="Este artigo explica como usar o git via linha de comando.
+Há alguns GUI (Interface Gráfica) para git, mas a maioria dos desenvolvedores usam a linha &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lagden.github.com">
+  <link rel="canonical" href="http://lagden.github.com/blog/page/2">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -83,7 +84,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/10/01/repositorio-remoto/">Repositório remoto</a></h1>
+      <h1 class="entry-title"><a href="/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a></h1>
     
     
       <p class="meta">
@@ -94,61 +95,139 @@
 
   
 
-<time datetime="2011-10-01T16:36:00-03:00" pubdate>Oct 1<span>st</span>, 2011</time>
+<time datetime="2011-10-01T15:36:00-03:00" pubdate>Oct 1<span>st</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><blockquote><p>Trabalhar com um repositório remoto é uma ótima maneira de colaborar o seu código com outros desenvolvedores, trabalhar em várias máquinas e fazer backup de seu código fonte.<br/>
-Um repositório remoto é simplesmente outro repositório, normalmente em outro servidor, que você pode empurrar (<code>git push</code>) os seus commits e puxar (<code>git pull</code>) commits dos outros.</p></blockquote>
+  <div class="entry-content"><blockquote><p>Este artigo explica como usar o <strong>git</strong> via linha de comando.<br/>
+Há alguns GUI (Interface Gráfica) para git, mas a maioria dos desenvolvedores usam a linha de comando juntamente com um visualizador de GUI para ser mais eficiente.</p></blockquote>
 
-<h3>Adicionando um servidor remoto</h3>
+<h2>O Básico</h2>
 
 <hr />
 
-<p>Utilizando o projeto &#8220;Hello Word&#8221; criado no artigo <a href="/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>, vamos adicionar um repositório remoto em nossa &#8220;working tree&#8221; local.</p>
+<p>Se você ainda não instalou git em sua máquina, você deve ler o artigo <a href="/blog/2011/10/01/instalando-git/">Instalando o Git</a>.</p>
 
-<blockquote><p><strong>Atenção:</strong> Crie um repositório no seu servidor remoto com o commando <code>git init --bare</code></p></blockquote>
+<h3>git init - inicializa um repositório Git</h3>
 
-<pre><code>$ ssh user@server.com
-user@server.com's password: 
-Last login: Fri Sep 30 19:07:03 2011 from 177.32.53.79
-user@server.com [~]# mkdir -p git/hello.git
-user@server.com [~]# cd git/hello.git
-user@server.com [~]# git init --bare
-</code></pre>
-
-<p>Na sua máquina local:</p>
+<p>Para criar um repositório em um diretório com arquivos existentes, você pode simplesmente executar <code>git init</code> no diretório.<br/>
+Por exemplo, digamos que temos um diretório com alguns arquivos nele, assim:</p>
 
 <pre><code>$ cd ~/my_app
-$ git remote add origin ssh://user@server.com/~/git/hello.git
+$ ls
+README   hello.rb
 </code></pre>
 
-<blockquote><p>Você pode ter vários controles remotos e dar nomes diferentes para cada, como &#8220;palco&#8221; ou &#8220;projeto&#8221;.<br/>
-Veja todos os seus controles remotos com <code>git remote</code> ou <code>git remote -v</code>.</p></blockquote>
+<p>Este é o projeto &#8220;Hello Word&#8221; que estamos escrevendo de exemplo.<br/>
+Até agora só temos dois arquivos, mas já é um começo para iniciar o controle de versão com git.</p>
 
-<h3>Empurre seus commits para o repositório remoto</h3>
-
-<pre><code>$ git push -u origin master
-Counting objects: 3, done. 
-Writing objects: 100% (3/3), 242 bytes, done. 
-Total 3 (delta 0), reused 0 (delta 0) 
-Unpacking objects: 100% (3/3), done.
-To ssh://user@server.com/~/git/hello.git
- * [new branch]      master -&gt; master
+<pre><code>$ git init
+Initialized empty Git repository in ~/my_app/.git/
 </code></pre>
 
-<h3>Puxe as alterações do repositório de origem</h3>
+<p>Agora você pode ver que há um subdiretório .git em seu projeto.<br/>
+Este é o seu repositório <strong>Git</strong>, onde todos os passos do seu projeto serão armazenados.</p>
 
-<p>É uma boa prática puxar (<code>git pull</code>) antes de empurrar (<code>git push</code>), assegurando que você tenha o código mais recente.</p>
-
-<pre><code>$ git pull origin master
+<pre><code>$ ls -a
+.        ..       .git     README   hello.rb
 </code></pre>
 
-<p>Isso irá sincronizar seu repositório local com o repositório remoto.<br/>
-Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às vezes pode ter alguns conflitos que deverão ser arrumados manualmente.</p>
+<h3>git add - adiciona conteúdo do arquivo para a &#8220;staging area&#8221;</h3>
+
+<p>No Git, você tem que adicionar o conteúdo do arquivo para &#8220;staging area&#8221; antes de comitá-los.<br/>
+Você deverá executar <code>git add</code> para adicioná-lo na sua &#8220;staging area&#8221;, mesmo se o arquivo já está &#8220;tracked&#8221; - ou seja, estava no seu último &#8220;commit&#8221; - precisamos chamar <code>git add</code> para adicionar as novas modificações.</p>
+
+<p>Voltando ao nosso exemplo &#8220;Hello Word&#8221;, vamos adicionar os arquivos, mas antes, podemos usar <code>git status</code> para ver como está o nosso projeto.</p>
+
+<pre><code>$ git status -s
+?? README
+?? hello.rb
+</code></pre>
+
+<p>Neste momento temos dois arquivos &#8220;untracked&#8221;, ou seja, ainda não estão sendo &#8220;tracked&#8221;. Vamos adicioná-los.</p>
+
+<pre><code>$ git add README hello.rb
+</code></pre>
+
+<p>Também é comum adicionar recursivamente todos arquivos:</p>
+
+<pre><code>$ git add .
+</code></pre>
+
+<p>Se executarmos o <code>git status</code> novamente veremos que os arquivos foram adicionados.</p>
+
+<pre><code>$ git status -s
+A  README
+A  hello.rb
+</code></pre>
+
+<p>OK, vamos editar um dos arquivos e executar o <code>git status</code> de para ver o que acontece.</p>
+
+<pre><code>$ echo "Alterei o leia isso." &gt; README
+$ git status -s
+AM README
+A  hello.rb
+</code></pre>
+
+<p>O status &#8220;AM&#8221; significa que o arquivo foi modificado desde a última vez que foi adicionado.<br/>
+Isso significa que se comitarmos agora, nós gravaremos a versão do arquivo que foi adicionado pela última vez, e não a versão que está no seu disco.</p>
+
+<h3>git commit - grava a versão do que foi adicionado na &#8220;staging area&#8221;</h3>
+
+<p>Agora que você organizou o conteúdo com o comando <code>git add</code>, execute <code>git commit</code> para realmente gravar sua versão.</p>
+
+<pre><code>$ git add .
+$ git status -s
+A  README
+A  hello.rb
+$ git commit -m "Primeiro commit"
+[master (root-commit) f0c26a6] Primeiro commit
+ 2 files changed, 6 insertions(+), 0 deletions(-)
+ create mode 100644 README
+ create mode 100644 hello.rb
+</code></pre>
+
+<p>Vamos alterar o README e comitar sua nova versão.</p>
+
+<pre><code>$ echo "Leia isso." &gt; README
+$ git st -s
+ M README
+$ git add .
+$ git ci -m "alterado o README"
+[master e4bdd45] alterado o README
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+</code></pre>
+
+<p>Agora um pequeno exemplo de como reverter algumas mudanças com o <code>git checkout</code>.</p>
+
+<p>Faça alguma alteração no README:</p>
+
+<pre><code>$ echo "Agora leia isso aqui." &gt; README
+$ git st -s
+ M README
+</code></pre>
+
+<p>Então execute este comando:</p>
+
+<pre><code>$ git checkout README
+</code></pre>
+
+<p>Abra seu editor de texto e veja que README voltou para última vez que foi comitado.</p>
+
+<pre><code>$ cat README 
+Leia isso.
+</code></pre>
+
+<hr />
+
+<p>Estes quatro simples comandos, <code>git init</code>, <code>git add</code>, <code>git commit</code> e <code>git checkout</code> permitem que você crie um histórico do seu código e remova todos os tipos de riscos em seu fluxo de desenvolvimento.</p>
+
+<hr />
+
+<p>Agora vamos para o <a href="/blog/2011/10/01/repositorio-remoto/">repositório remoto</a>.</p>
 </div>
   
   
@@ -158,9 +237,11 @@ Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="/blog/page/3/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/">Newer &rarr;</a>
     
   </div>
 </div>

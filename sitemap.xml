@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+    <url>
+        <loc>http://lagden.github.com/blog/2011/10/01/instalando-git/</loc>
+        <lastmod>2011-10-23T00:18:49-02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://lagden.github.com/blog/2011/10/01/gerando-uma-chave-ssh/</loc>
+        <lastmod>2011-10-23T00:18:49-02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://lagden.github.com/blog/2011/10/01/git-para-iniciantes/</loc>
+        <lastmod>2011-10-23T00:18:49-02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://lagden.github.com/blog/2011/10/01/repositorio-remoto/</loc>
+        <lastmod>2011-10-23T00:18:49-02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://lagden.github.com/about/</loc>
+        <lastmod>2011-10-23T00:18:49-02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://lagden.github.com/blog/archives/</loc>
+        <lastmod>2011-10-23T00:18:49-02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://lagden.github.com/</loc>
+        <lastmod>2011-10-23T00:18:49-02:00</lastmod>
+    </url>
+</urlset>
