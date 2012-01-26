@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>X-Source</title>
+  <title>Usefull Stuff</title>
   <meta name="author" content="Thiago Lagden">
 
   
-  <meta name="description" content="Mac OS X Se você tem o Homebrew instalado, você conhece o caminho: $ brew install git Você também pode fazer o download do instalador pré-compilado e &hellip;">
+  <meta name="description" content="Usamos as chaves SSH para estabelecer uma conexão segura entre seu computador e o servidor Git. Configurá-los é bastante fácil, mas envolve uma série &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,7 +24,7 @@
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="X-Source" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="Usefull Stuff" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -47,9 +47,9 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">X-Source</a></h1>
+  <h1><a href="/">Usefull Stuff</a></h1>
   
-    <h2>Making some code</h2>
+    <h2>Helping myself not forget</h2>
   
 </hgroup>
 
@@ -83,7 +83,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/10/01/instalando-git/">Instalando Git</a></h1>
+      <h1 class="entry-title"><a href="/blog/2011/10/01/gerando-uma-chave-ssh/">Gerando uma chave SSH</a></h1>
     
     
       <p class="meta">
@@ -94,72 +94,91 @@
 
   
 
-<time datetime="2011-10-01T13:36:00-03:00" pubdate>Oct 1<span>st</span>, 2011</time>
+<time datetime="2011-10-01T14:36:00-03:00" pubdate>Oct 1<span>st</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h2>Mac OS X</h2>
+  <div class="entry-content"><blockquote><p>Usamos as chaves SSH para estabelecer uma conexão segura entre seu computador e o servidor Git. Configurá-los é bastante fácil, mas envolve uma série de etapas.</p></blockquote>
+
+<p>Se você utiliza Windows abra o GitBash.</p>
+
+<h3>Etapa 1. Verifique se há chaves SSH.</h3>
+
+<p>Você tem um par de chaves existente? Você pode pular para a <strong>Etapa 4</strong>.</p>
+
+<p>Verifique se há chaves SSH no seu computador:</p>
+
+<pre><code>cd ~/.ssh
+</code></pre>
+
+<p>Se aparecer <code>Nenhum arquivo ou diretório</code> ou <code>No such file or directory</code> pule para o <strong>Etapa 3</strong>. Caso contrário, continue com a próxima etapa.</p>
+
+<h3>Etapa 2. Faça o backup e remova a chave SSH existente.</h3>
+
+<pre><code>ls
+config  id_rsa  id_rsa.pub  known_hosts
+mkdir key_backup
+cp id_rsa* key_backup
+rm id_rsa*
+</code></pre>
+
+<h3>Etapa 3. Gerando uma nova chave SSH.</h3>
+
+<p>Para gerar uma chave SSH nova, insira o código abaixo e apenas pressione <strong>enter</strong>.</p>
+
+<pre><code>ssh-keygen -t rsa -C "email@exemplo.com"
+</code></pre>
+
+<p>No final deverá aparecer algo assim:</p>
+
+<pre><code>Your identification has been saved in /Users/your_user_directory/.ssh/id_rsa.
+Your public key has been saved in /Users/your_user_directory/.ssh/id_rsa.pub.
+The key fingerprint is:
+01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db email@exemplo.com
+The key's randomart image is:
++--[ RSA 2048]----+
+|     .+   +      |
+|       = o O .   |
+|        = * *    |
+|       o = +     |
+|      o S .      |
+|     o o =       |
+|      o . E      |
+|                 |
+|                 |
++-----------------+
+</code></pre>
+
+<h3>Etapa 4. Adicione sua chave SSH no servidor Git.</h3>
+
+<pre><code>cat ~/.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvP9QeNCEHrCdRKSlYmfY2NdBnvsK7M0lD8GQ4SLk+zc3hMAOayNw9aBsqdkEkIqjJRGKDm3NSxSlT1Q9mMCd21+b76OGswcaHBxrzxWDuyJSsKFVPKrDVUpIfYDJWqB6pdqg15HVH4LWGWvVmRRZSLVTYI6QBT8yGd4U2YxY+aF8azi8zIR0+hWQKNjDO3xyXRlLuc3Z6HBu4KOX6d8wqpO6DWuunpONj8/2ayJRbMBt2p72oBmDG3WsKQK6Nox0OSxoPK1ndXjWObFcMWx84q7w3CHTD8OrkYvdSqTo5V+DJwEAheCJqYWPXZV/MXnhYb1gKy0qPVj5uCyfqHXRHQ== email@exemplo.com
+</code></pre>
+
+<p>Acesse seu servidor Git e edite o arquivo authorized_keys.</p>
+
+<pre><code>ssh user@server.com
+user@server.com's password: 
+Last login: Fri Sep 30 19:07:03 2011 from 177.32.53.79
+user@server.com [~]# vim ~/.ssh/authorized_keys
+</code></pre>
+
+<p>Adicione sua chave e salve o arquivo.</p>
+
+<pre><code>user@server.com [~]# touch ~/.ssh/authorized_keys
+user@server.com [~]# chmod 644 ~/.ssh/authorized_keys
+</code></pre>
 
 <hr />
 
-<p>Se você tem o <a href="http://mxcl.github.com/homebrew/" title="Homebrew">Homebrew</a> instalado, você conhece o caminho:</p>
-
-<pre><code>$ brew install git
-</code></pre>
-
-<p>Você também pode fazer o download do <a href="http://code.google.com/p/git-osx-installer/downloads/list?can=3" title="Instalador Git">instalador pré-compilado</a> e instalar o git assim como a maioria das aplicações.</p>
-
-<h2>Linux / Mac</h2>
+<p>Caso esteja usando o <a href="http://github.com">GitHub</a> como servidor, então <a href="http://help.github.com/mac-set-up-git/">clique aqui</a>.</p>
 
 <hr />
 
-<p>Se você é um geek, então baixe o <a href="http://git-scm.com/download">código fonte</a> e instale o git.</p>
-
-<h2>Windows</h2>
-
-<hr />
-
-<p>O mais popular jeito de rodar o git no Windows é <a href="http://git-scm.com/download">mysysgit</a></p>
-
-<h2>Global settings</h2>
-
-<hr />
-
-<p>Depois de tudo instalado é a hora de definir algumas configurações globais:</p>
-
-<pre><code>$ git config --global user.name "Nome Sobrenome"
-$ git config --global user.email "email@exemplo.com"
-</code></pre>
-
-<p>Se você pretende trabalhar com pessoas de diferentes <strong>sistemas operacionais</strong> todos devem definir a mesma configuração para evitar problemas maiores com o final de linha (<a href="http://help.github.com/dealing-with-lineendings/">mais sobre o porquê</a>):</p>
-
-<pre><code>$ git config --global core.autocrlf input
-</code></pre>
-
-<h3>Plus (Global settings)</h3>
-
-<p>Alguns atalhos para facilitar a sua vida:</p>
-
-<pre><code>$ git config --global alias.st status
-$ git config --global alias.ci commit
-$ git config --global alias.co checkout
-$ git config --global alias.br branch
-</code></pre>
-
-<p>Deixe tudo colorido:</p>
-
-<pre><code>git config --global color.branch auto
-git config --global color.diff auto
-git config --global color.interactive auto
-git config --global color.status auto
-</code></pre>
-
-<hr />
-
-<p>O próximo passo é gerar uma chave SSH. Continue em <a href="/blog/2011/10/01/gerando-uma-chave-ssh/">Gerando uma chave SSH</a>.</p>
+<p>É isso aí! Você está pronto para usar o git. Continue em <a href="/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>.</p>
 </div>
   
   
@@ -168,6 +187,8 @@ git config --global color.status auto
     </article>
   
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/5/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -180,6 +201,10 @@ git config --global color.status auto
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/01/25/instalando-a-extenssao-intl/">Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2011/10/01/repositorio-remoto/">Repositório remoto</a>
@@ -234,7 +259,7 @@ git config --global color.status auto
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2011 - Thiago Lagden -
+  Copyright &copy; 2012 - Thiago Lagden -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

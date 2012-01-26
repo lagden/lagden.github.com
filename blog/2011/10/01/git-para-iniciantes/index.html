@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Git para iniciantes - X-Source</title>
+  <title>Git para iniciantes - Usefull Stuff</title>
   <meta name="author" content="Thiago Lagden">
 
   
@@ -25,7 +25,7 @@ Há alguns GUI (Interface Gráfica) para git, mas a maioria dos desenvolvedores 
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="X-Source" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="Usefull Stuff" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -48,9 +48,9 @@ Há alguns GUI (Interface Gráfica) para git, mas a maioria dos desenvolvedores 
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">X-Source</a></h1>
+  <h1><a href="/">Usefull Stuff</a></h1>
   
-    <h2>Making some code</h2>
+    <h2>Helping myself not forget</h2>
   
 </hgroup>
 
@@ -110,112 +110,119 @@ Há alguns GUI (Interface Gráfica) para git, mas a maioria dos desenvolvedores 
 
 <h3>git init - inicializa um repositório Git</h3>
 
-<p>Para criar um repositório em um diretório com arquivos existentes, você pode simplesmente executar <code>git init</code> no diretório.<br/>
-Por exemplo, digamos que temos um diretório com alguns arquivos nele, assim:</p>
+<p>Para criar um repositório em um diretório com arquivos existentes, podemos simplesmente executar <code>git init</code> no diretório.<br/>
+Digamos que temos um diretório com alguns arquivos nele, por exemplo:</p>
 
-<pre><code>$ cd ~/my_app
-$ ls
+<pre><code>cd ~/my_app
+ls
 README   hello.rb
 </code></pre>
 
-<p>Este é o projeto &#8220;Hello Word&#8221; que estamos escrevendo de exemplo.<br/>
-Até agora só temos dois arquivos, mas já é um começo para iniciar o controle de versão com git.</p>
+<p>Este é o projeto &#8220;Hello Word&#8221; que estamos escrevendo.<br/>
+Até o momento temos dois arquivos, mas já podemos iniciar o controle de versão com git.</p>
 
-<pre><code>$ git init
+<pre><code>git init
 Initialized empty Git repository in ~/my_app/.git/
 </code></pre>
 
-<p>Agora você pode ver que há um subdiretório .git em seu projeto.<br/>
+<p>Agora, podemos ver que há um diretório <code>.git</code> em seu projeto.<br/>
 Este é o seu repositório <strong>Git</strong>, onde todos os passos do seu projeto serão armazenados.</p>
 
-<pre><code>$ ls -a
+<pre><code>ls -a
 .        ..       .git     README   hello.rb
 </code></pre>
 
 <h3>git add - adiciona conteúdo do arquivo para a &#8220;staging area&#8221;</h3>
 
-<p>No Git, você tem que adicionar o conteúdo do arquivo para &#8220;staging area&#8221; antes de comitá-los.<br/>
-Você deverá executar <code>git add</code> para adicioná-lo na sua &#8220;staging area&#8221;, mesmo se o arquivo já está &#8220;tracked&#8221; - ou seja, estava no seu último &#8220;commit&#8221; - precisamos chamar <code>git add</code> para adicionar as novas modificações.</p>
+<p>No Git, você tem que adicionar o arquivo para &#8220;staging area&#8221; antes de comitá-los.<br/>
+Precisamos executar <code>git add</code> para adicionar as novas modificações.</p>
 
 <p>Voltando ao nosso exemplo &#8220;Hello Word&#8221;, vamos adicionar os arquivos, mas antes, podemos usar <code>git status</code> para ver como está o nosso projeto.</p>
 
-<pre><code>$ git status -s
+<pre><code>git status -s
 ?? README
 ?? hello.rb
 </code></pre>
 
-<p>Neste momento temos dois arquivos &#8220;untracked&#8221;, ou seja, ainda não estão sendo &#8220;tracked&#8221;. Vamos adicioná-los.</p>
+<p>Neste momento temos dois arquivos &#8220;untracked&#8221;. Vamos adicioná-los.</p>
 
-<pre><code>$ git add README hello.rb
+<pre><code>git add README hello.rb
 </code></pre>
 
 <p>Também é comum adicionar recursivamente todos arquivos:</p>
 
-<pre><code>$ git add .
+<pre><code>git add .
 </code></pre>
 
 <p>Se executarmos o <code>git status</code> novamente veremos que os arquivos foram adicionados.</p>
 
-<pre><code>$ git status -s
+<pre><code>git status -s
 A  README
 A  hello.rb
 </code></pre>
 
-<p>OK, vamos editar um dos arquivos e executar o <code>git status</code> de para ver o que acontece.</p>
+<p>OK! Vamos editar um dos arquivos e executar o <code>git status</code> de para ver o que acontece.</p>
 
-<pre><code>$ echo "Alterei o leia isso." &gt; README
-$ git status -s
+<pre><code>echo "Alterei o leia-me." &gt; README
+git status -s
 AM README
 A  hello.rb
 </code></pre>
 
-<p>O status &#8220;AM&#8221; significa que o arquivo foi modificado desde a última vez que foi adicionado.<br/>
-Isso significa que se comitarmos agora, nós gravaremos a versão do arquivo que foi adicionado pela última vez, e não a versão que está no seu disco.</p>
+<p>O status <code>AM</code> significa que o arquivo foi modificado desde a última vez que foi adicionado.<br/>
+Isso significa que: se executarmos o <code>git commit</code> neste momento, gravaremos a versão do arquivo que foi adicionado pela última vez, e não a versão modificada.</p>
+
+<p>Caso queira comitar a versão modificada, basta executar o <code>git add .</code> novamente.</p>
 
 <h3>git commit - grava a versão do que foi adicionado na &#8220;staging area&#8221;</h3>
 
-<p>Agora que você organizou o conteúdo com o comando <code>git add</code>, execute <code>git commit</code> para realmente gravar sua versão.</p>
+<p>Agora que você organizou os arquivos com o comando <code>git add</code>.</p>
 
-<pre><code>$ git add .
-$ git status -s
+<pre><code>git add .
+git status -s
 A  README
 A  hello.rb
-$ git commit -m "Primeiro commit"
+</code></pre>
+
+<p>Execute <code>git commit</code> para gravar sua versão.</p>
+
+<pre><code>git commit -m "Primeiro commit"
 [master (root-commit) f0c26a6] Primeiro commit
  2 files changed, 6 insertions(+), 0 deletions(-)
  create mode 100644 README
  create mode 100644 hello.rb
 </code></pre>
 
-<p>Vamos alterar o README e comitar sua nova versão.</p>
+<p>Gooodd!!! Agora vamos alterar o <code>README</code> e comitar uma nova versão.</p>
 
-<pre><code>$ echo "Leia isso." &gt; README
-$ git st -s
+<pre><code>echo "Leia-me. Muito importante." &gt; README
+git st -s
  M README
-$ git add .
-$ git ci -m "alterado o README"
+git add .
+git ci -m "alterado o README"
 [master e4bdd45] alterado o README
  1 files changed, 1 insertions(+), 1 deletions(-)
 </code></pre>
 
-<p>Agora um pequeno exemplo de como reverter algumas mudanças com o <code>git checkout</code>.</p>
+<h3>git checkout - pequeno exemplo</h3>
 
-<p>Faça alguma alteração no README:</p>
+<p>Agora um pequeno exemplo de como reverter algumas mudanças com o <code>git checkout</code>.<br/>
+Faça alguma alteração no <code>README</code>:</p>
 
-<pre><code>$ echo "Agora leia isso aqui." &gt; README
-$ git st -s
+<pre><code>echo "WTF..." &gt; README
+git st -s
  M README
 </code></pre>
 
 <p>Então execute este comando:</p>
 
-<pre><code>$ git checkout README
+<pre><code>git checkout README
 </code></pre>
 
-<p>Abra seu editor de texto e veja que README voltou para última vez que foi comitado.</p>
+<p>Abra seu editor de texto e veja que <code>README</code> voltou para última vez que foi comitado.</p>
 
-<pre><code>$ cat README 
-Leia isso.
+<pre><code>cat README 
+Leia-me. Muito importante.
 </code></pre>
 
 <hr />
@@ -285,6 +292,10 @@ Leia isso.
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/01/25/instalando-a-extenssao-intl/">Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/10/01/repositorio-remoto/">Repositório remoto</a>
       </li>
     
@@ -338,7 +349,7 @@ Leia isso.
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2011 - Thiago Lagden -
+  Copyright &copy; 2012 - Thiago Lagden -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

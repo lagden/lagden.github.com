@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Repositório remoto - X-Source</title>
+  <title>Repositório remoto - Usefull Stuff</title>
   <meta name="author" content="Thiago Lagden">
 
   
@@ -24,7 +24,7 @@
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="X-Source" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="Usefull Stuff" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -47,9 +47,9 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">X-Source</a></h1>
+  <h1><a href="/">Usefull Stuff</a></h1>
   
-    <h2>Making some code</h2>
+    <h2>Helping myself not forget</h2>
   
 </hgroup>
 
@@ -105,11 +105,11 @@ Um repositório remoto é simplesmente outro repositório, normalmente em outro 
 
 <hr />
 
-<p>Utilizando o projeto &#8220;Hello Word&#8221; criado no artigo <a href="/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>, vamos adicionar um repositório remoto em nossa &#8220;working tree&#8221; local.</p>
+<p>Utilizaremos o projeto &#8220;Hello Word&#8221; criado no artigo <a href="/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>.</p>
 
 <blockquote><p><strong>Atenção:</strong> Crie um repositório no seu servidor remoto com o commando <code>git init --bare</code></p></blockquote>
 
-<pre><code>$ ssh user@server.com
+<pre><code>ssh user@server.com
 user@server.com's password: 
 Last login: Fri Sep 30 19:07:03 2011 from 177.32.53.79
 user@server.com [~]# mkdir -p git/hello.git
@@ -117,18 +117,18 @@ user@server.com [~]# cd git/hello.git
 user@server.com [~]# git init --bare
 </code></pre>
 
-<p>Na sua máquina local:</p>
+<p>Na sua máquina, adicione repositório remoto:</p>
 
-<pre><code>$ cd ~/my_app
-$ git remote add origin ssh://user@server.com/~/git/hello.git
+<pre><code>cd ~/my_app
+git remote add origin ssh://user@server.com/~/git/hello.git
 </code></pre>
 
 <blockquote><p>Você pode ter vários controles remotos e dar nomes diferentes para cada, como &#8220;palco&#8221; ou &#8220;projeto&#8221;.<br/>
 Veja todos os seus controles remotos com <code>git remote</code> ou <code>git remote -v</code>.</p></blockquote>
 
-<h3>Empurre seus commits para o repositório remoto</h3>
+<h3>git push - Empurre seus commits para o repositório remoto</h3>
 
-<pre><code>$ git push -u origin master
+<pre><code>git push -u origin master
 Counting objects: 3, done. 
 Writing objects: 100% (3/3), 242 bytes, done. 
 Total 3 (delta 0), reused 0 (delta 0) 
@@ -137,15 +137,17 @@ To ssh://user@server.com/~/git/hello.git
  * [new branch]      master -&gt; master
 </code></pre>
 
-<h3>Puxe as alterações do repositório de origem</h3>
+<h3>git pull - Puxe as alterações do repositório de origem</h3>
 
 <p>É uma boa prática puxar (<code>git pull</code>) antes de empurrar (<code>git push</code>), assegurando que você tenha o código mais recente.</p>
 
-<pre><code>$ git pull origin master
+<pre><code>git pull origin master
 </code></pre>
 
-<p>Isso irá sincronizar seu repositório local com o repositório remoto.<br/>
-Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às vezes pode ter alguns conflitos que deverão ser arrumados manualmente.</p>
+<p>Isso irá sincronizar seu repositório local com o repositório remoto.</p>
+
+<p>Geralmente o &#8220;merge&#8221; dos repositórios ocorrem sem problemas, mas às vezes podem acontercer conflitos que deverão ser arrumados manualmente de preferência.<br/>
+Está curioso? Veja <a href="http://genomewiki.ucsc.edu/index.php/Resolving_merge_conflicts_in_Git">Resolvendo conflitos</a></p>
 </div>
 
 
@@ -191,6 +193,8 @@ Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às
         <a class="basic-alignment left" href="/blog/2011/10/01/git-para-iniciantes/" title="Previous Post: Git para iniciantes">&laquo; Git para iniciantes</a>
       
       
+        <a class="basic-alignment right" href="/blog/2012/01/25/instalando-a-extenssao-intl/" title="next Post: Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2">Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2 &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -202,6 +206,10 @@ Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/01/25/instalando-a-extenssao-intl/">Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2011/10/01/repositorio-remoto/">Repositório remoto</a>
@@ -257,7 +265,7 @@ Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2011 - Thiago Lagden -
+  Copyright &copy; 2012 - Thiago Lagden -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[X-Source]]></title>
+  <title><![CDATA[Usefull Stuff]]></title>
   <link href="http://lagden.github.com/atom.xml" rel="self"/>
   <link href="http://lagden.github.com/"/>
-  <updated>2011-10-23T03:58:37-02:00</updated>
+  <updated>2012-01-25T23:48:33-02:00</updated>
   <id>http://lagden.github.com/</id>
   <author>
     <name><![CDATA[Thiago Lagden]]></name>
@@ -12,6 +12,70 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2]]></title>
+    <link href="http://lagden.github.com/blog/2012/01/25/instalando-a-extenssao-intl/"/>
+    <updated>2012-01-25T21:00:00-02:00</updated>
+    <id>http://lagden.github.com/blog/2012/01/25/instalando-a-extenssao-intl</id>
+    <content type="html"><![CDATA[<blockquote><p>O APC (Alternative PHP Cache) é livre e aberto. Seu objetivo é fornecer um framework robusto para cache e otimização do código PHP.</p></blockquote>
+
+<h3>Instalando o APC</h3>
+
+<p>Abra o terminal e faça o seguinte:</p>
+
+<h4>1. Baixe a última versão</h4>
+
+<pre><code>mkdir -p ~/tmp &amp;&amp; cd ~/tmp
+wget http://pecl.php.net/get/APC-3.1.9.tgz
+tar zxfv APC-3.1.9.tgz
+cd APC-3.1.9
+</code></pre>
+
+<h4>2. Execute o phpize</h4>
+
+<p>phpize é um script que pode ter sido instalado com o PHP. No meu caso, que utilizo PHP que já vem instalado com OS X 10.7, é localizado no <code>/usr/bin/</code>.</p>
+
+<pre><code>cd ~/tmp/APC-3.1.9
+/usr/bin/phpize
+</code></pre>
+
+<h4>3. Execute o script de configuração.</h4>
+
+<p>A única opção que você precisa especificar é a localização do seu script php-config. (Talvez você possa usar <code>which php-config</code> para localizá-lo)</p>
+
+<pre><code>./configure --with-php-config=/usr/bin/php-config --enable-apc
+</code></pre>
+
+<h4>4. Compile e instale</h4>
+
+<pre><code>make
+sudo make install
+</code></pre>
+
+<h4>5. Configure seu php.ini e reinicie o seu servidor web</h4>
+
+<ul>
+<li>abra o arquivo: <code>vim /etc/php.ini</code></li>
+<li>coloque essa linha: <code>extension="apc.so"</code></li>
+<li>salve reinicie o seu servidor web: <code>sudo apachectl restart</code></li>
+</ul>
+
+
+<p>Para verificar se foi instalado corretamente, execute <code>php -i | grep apc</code>. Isso deverá resultar algo assim:</p>
+
+<pre><code>apc
+apc.cache_by_default =&gt; On =&gt; On
+apc.canonicalize =&gt; On =&gt; On
+apc.coredump_unmap =&gt; Off =&gt; Off
+apc.enable_cli =&gt; Off =&gt; Off
+apc.enabled =&gt; On =&gt; On
+.
+.
+.
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Repositório remoto]]></title>
@@ -25,11 +89,11 @@ Um repositório remoto é simplesmente outro repositório, normalmente em outro 
 
 <hr />
 
-<p>Utilizando o projeto &#8220;Hello Word&#8221; criado no artigo <a href="http://lagden.github.com/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>, vamos adicionar um repositório remoto em nossa &#8220;working tree&#8221; local.</p>
+<p>Utilizaremos o projeto &#8220;Hello Word&#8221; criado no artigo <a href="http://lagden.github.com/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>.</p>
 
 <blockquote><p><strong>Atenção:</strong> Crie um repositório no seu servidor remoto com o commando <code>git init --bare</code></p></blockquote>
 
-<pre><code>$ ssh user@server.com
+<pre><code>ssh user@server.com
 user@server.com's password: 
 Last login: Fri Sep 30 19:07:03 2011 from 177.32.53.79
 user@server.com [~]# mkdir -p git/hello.git
@@ -37,18 +101,18 @@ user@server.com [~]# cd git/hello.git
 user@server.com [~]# git init --bare
 </code></pre>
 
-<p>Na sua máquina local:</p>
+<p>Na sua máquina, adicione repositório remoto:</p>
 
-<pre><code>$ cd ~/my_app
-$ git remote add origin ssh://user@server.com/~/git/hello.git
+<pre><code>cd ~/my_app
+git remote add origin ssh://user@server.com/~/git/hello.git
 </code></pre>
 
 <blockquote><p>Você pode ter vários controles remotos e dar nomes diferentes para cada, como &#8220;palco&#8221; ou &#8220;projeto&#8221;.<br/>
 Veja todos os seus controles remotos com <code>git remote</code> ou <code>git remote -v</code>.</p></blockquote>
 
-<h3>Empurre seus commits para o repositório remoto</h3>
+<h3>git push - Empurre seus commits para o repositório remoto</h3>
 
-<pre><code>$ git push -u origin master
+<pre><code>git push -u origin master
 Counting objects: 3, done. 
 Writing objects: 100% (3/3), 242 bytes, done. 
 Total 3 (delta 0), reused 0 (delta 0) 
@@ -57,15 +121,17 @@ To ssh://user@server.com/~/git/hello.git
  * [new branch]      master -&gt; master
 </code></pre>
 
-<h3>Puxe as alterações do repositório de origem</h3>
+<h3>git pull - Puxe as alterações do repositório de origem</h3>
 
 <p>É uma boa prática puxar (<code>git pull</code>) antes de empurrar (<code>git push</code>), assegurando que você tenha o código mais recente.</p>
 
-<pre><code>$ git pull origin master
+<pre><code>git pull origin master
 </code></pre>
 
-<p>Isso irá sincronizar seu repositório local com o repositório remoto.<br/>
-Geralmente o &#8220;merge&#8221; dos repositórios ocorre sem problemas, mas às vezes pode ter alguns conflitos que deverão ser arrumados manualmente.</p>
+<p>Isso irá sincronizar seu repositório local com o repositório remoto.</p>
+
+<p>Geralmente o &#8220;merge&#8221; dos repositórios ocorrem sem problemas, mas às vezes podem acontercer conflitos que deverão ser arrumados manualmente de preferência.<br/>
+Está curioso? Veja <a href="http://genomewiki.ucsc.edu/index.php/Resolving_merge_conflicts_in_Git">Resolvendo conflitos</a></p>
 ]]></content>
   </entry>
   
@@ -85,112 +151,119 @@ Há alguns GUI (Interface Gráfica) para git, mas a maioria dos desenvolvedores 
 
 <h3>git init - inicializa um repositório Git</h3>
 
-<p>Para criar um repositório em um diretório com arquivos existentes, você pode simplesmente executar <code>git init</code> no diretório.<br/>
-Por exemplo, digamos que temos um diretório com alguns arquivos nele, assim:</p>
+<p>Para criar um repositório em um diretório com arquivos existentes, podemos simplesmente executar <code>git init</code> no diretório.<br/>
+Digamos que temos um diretório com alguns arquivos nele, por exemplo:</p>
 
-<pre><code>$ cd ~/my_app
-$ ls
+<pre><code>cd ~/my_app
+ls
 README   hello.rb
 </code></pre>
 
-<p>Este é o projeto &#8220;Hello Word&#8221; que estamos escrevendo de exemplo.<br/>
-Até agora só temos dois arquivos, mas já é um começo para iniciar o controle de versão com git.</p>
+<p>Este é o projeto &#8220;Hello Word&#8221; que estamos escrevendo.<br/>
+Até o momento temos dois arquivos, mas já podemos iniciar o controle de versão com git.</p>
 
-<pre><code>$ git init
+<pre><code>git init
 Initialized empty Git repository in ~/my_app/.git/
 </code></pre>
 
-<p>Agora você pode ver que há um subdiretório .git em seu projeto.<br/>
+<p>Agora, podemos ver que há um diretório <code>.git</code> em seu projeto.<br/>
 Este é o seu repositório <strong>Git</strong>, onde todos os passos do seu projeto serão armazenados.</p>
 
-<pre><code>$ ls -a
+<pre><code>ls -a
 .        ..       .git     README   hello.rb
 </code></pre>
 
 <h3>git add - adiciona conteúdo do arquivo para a &#8220;staging area&#8221;</h3>
 
-<p>No Git, você tem que adicionar o conteúdo do arquivo para &#8220;staging area&#8221; antes de comitá-los.<br/>
-Você deverá executar <code>git add</code> para adicioná-lo na sua &#8220;staging area&#8221;, mesmo se o arquivo já está &#8220;tracked&#8221; - ou seja, estava no seu último &#8220;commit&#8221; - precisamos chamar <code>git add</code> para adicionar as novas modificações.</p>
+<p>No Git, você tem que adicionar o arquivo para &#8220;staging area&#8221; antes de comitá-los.<br/>
+Precisamos executar <code>git add</code> para adicionar as novas modificações.</p>
 
 <p>Voltando ao nosso exemplo &#8220;Hello Word&#8221;, vamos adicionar os arquivos, mas antes, podemos usar <code>git status</code> para ver como está o nosso projeto.</p>
 
-<pre><code>$ git status -s
+<pre><code>git status -s
 ?? README
 ?? hello.rb
 </code></pre>
 
-<p>Neste momento temos dois arquivos &#8220;untracked&#8221;, ou seja, ainda não estão sendo &#8220;tracked&#8221;. Vamos adicioná-los.</p>
+<p>Neste momento temos dois arquivos &#8220;untracked&#8221;. Vamos adicioná-los.</p>
 
-<pre><code>$ git add README hello.rb
+<pre><code>git add README hello.rb
 </code></pre>
 
 <p>Também é comum adicionar recursivamente todos arquivos:</p>
 
-<pre><code>$ git add .
+<pre><code>git add .
 </code></pre>
 
 <p>Se executarmos o <code>git status</code> novamente veremos que os arquivos foram adicionados.</p>
 
-<pre><code>$ git status -s
+<pre><code>git status -s
 A  README
 A  hello.rb
 </code></pre>
 
-<p>OK, vamos editar um dos arquivos e executar o <code>git status</code> de para ver o que acontece.</p>
+<p>OK! Vamos editar um dos arquivos e executar o <code>git status</code> de para ver o que acontece.</p>
 
-<pre><code>$ echo "Alterei o leia isso." &gt; README
-$ git status -s
+<pre><code>echo "Alterei o leia-me." &gt; README
+git status -s
 AM README
 A  hello.rb
 </code></pre>
 
-<p>O status &#8220;AM&#8221; significa que o arquivo foi modificado desde a última vez que foi adicionado.<br/>
-Isso significa que se comitarmos agora, nós gravaremos a versão do arquivo que foi adicionado pela última vez, e não a versão que está no seu disco.</p>
+<p>O status <code>AM</code> significa que o arquivo foi modificado desde a última vez que foi adicionado.<br/>
+Isso significa que: se executarmos o <code>git commit</code> neste momento, gravaremos a versão do arquivo que foi adicionado pela última vez, e não a versão modificada.</p>
+
+<p>Caso queira comitar a versão modificada, basta executar o <code>git add .</code> novamente.</p>
 
 <h3>git commit - grava a versão do que foi adicionado na &#8220;staging area&#8221;</h3>
 
-<p>Agora que você organizou o conteúdo com o comando <code>git add</code>, execute <code>git commit</code> para realmente gravar sua versão.</p>
+<p>Agora que você organizou os arquivos com o comando <code>git add</code>.</p>
 
-<pre><code>$ git add .
-$ git status -s
+<pre><code>git add .
+git status -s
 A  README
 A  hello.rb
-$ git commit -m "Primeiro commit"
+</code></pre>
+
+<p>Execute <code>git commit</code> para gravar sua versão.</p>
+
+<pre><code>git commit -m "Primeiro commit"
 [master (root-commit) f0c26a6] Primeiro commit
  2 files changed, 6 insertions(+), 0 deletions(-)
  create mode 100644 README
  create mode 100644 hello.rb
 </code></pre>
 
-<p>Vamos alterar o README e comitar sua nova versão.</p>
+<p>Gooodd!!! Agora vamos alterar o <code>README</code> e comitar uma nova versão.</p>
 
-<pre><code>$ echo "Leia isso." &gt; README
-$ git st -s
+<pre><code>echo "Leia-me. Muito importante." &gt; README
+git st -s
  M README
-$ git add .
-$ git ci -m "alterado o README"
+git add .
+git ci -m "alterado o README"
 [master e4bdd45] alterado o README
  1 files changed, 1 insertions(+), 1 deletions(-)
 </code></pre>
 
-<p>Agora um pequeno exemplo de como reverter algumas mudanças com o <code>git checkout</code>.</p>
+<h3>git checkout - pequeno exemplo</h3>
 
-<p>Faça alguma alteração no README:</p>
+<p>Agora um pequeno exemplo de como reverter algumas mudanças com o <code>git checkout</code>.<br/>
+Faça alguma alteração no <code>README</code>:</p>
 
-<pre><code>$ echo "Agora leia isso aqui." &gt; README
-$ git st -s
+<pre><code>echo "WTF..." &gt; README
+git st -s
  M README
 </code></pre>
 
 <p>Então execute este comando:</p>
 
-<pre><code>$ git checkout README
+<pre><code>git checkout README
 </code></pre>
 
-<p>Abra seu editor de texto e veja que README voltou para última vez que foi comitado.</p>
+<p>Abra seu editor de texto e veja que <code>README</code> voltou para última vez que foi comitado.</p>
 
-<pre><code>$ cat README 
-Leia isso.
+<pre><code>cat README 
+Leia-me. Muito importante.
 </code></pre>
 
 <hr />
@@ -218,29 +291,25 @@ Leia isso.
 
 <p>Verifique se há chaves SSH no seu computador:</p>
 
-<pre><code>$ cd ~/.ssh
+<pre><code>cd ~/.ssh
 </code></pre>
 
-<p>Se aparecer &#8220;Nenhum arquivo ou diretório&#8221; pule para o <strong>Etapa 3</strong>. Caso contrário, continue com a próxima etapa.</p>
+<p>Se aparecer <code>Nenhum arquivo ou diretório</code> ou <code>No such file or directory</code> pule para o <strong>Etapa 3</strong>. Caso contrário, continue com a próxima etapa.</p>
 
 <h3>Etapa 2. Faça o backup e remova a chave SSH existente.</h3>
 
-<pre><code>$ ls
+<pre><code>ls
 config  id_rsa  id_rsa.pub  known_hosts
-$ mkdir key_backup
-$ cp id_rsa* key_backup
-$ rm id_rsa*
+mkdir key_backup
+cp id_rsa* key_backup
+rm id_rsa*
 </code></pre>
 
 <h3>Etapa 3. Gerando uma nova chave SSH.</h3>
 
 <p>Para gerar uma chave SSH nova, insira o código abaixo e apenas pressione <strong>enter</strong>.</p>
 
-<pre><code>$ ssh-keygen -t rsa -C "email@exemplo.com"
-Generating public/private rsa key pair.
-Enter file in which to save the key (/Users/your_user_directory/.ssh/id_rsa):&lt;press enter&gt;
-Enter passphrase (empty for no passphrase):&lt;enter a passphrase&gt;
-Enter same passphrase again:&lt;enter passphrase again&gt;
+<pre><code>ssh-keygen -t rsa -C "email@exemplo.com"
 </code></pre>
 
 <p>No final deverá aparecer algo assim:</p>
@@ -265,19 +334,23 @@ The key's randomart image is:
 
 <h3>Etapa 4. Adicione sua chave SSH no servidor Git.</h3>
 
-<pre><code>$ cat ~/.ssh/id_rsa.pub
+<pre><code>cat ~/.ssh/id_rsa.pub
 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvP9QeNCEHrCdRKSlYmfY2NdBnvsK7M0lD8GQ4SLk+zc3hMAOayNw9aBsqdkEkIqjJRGKDm3NSxSlT1Q9mMCd21+b76OGswcaHBxrzxWDuyJSsKFVPKrDVUpIfYDJWqB6pdqg15HVH4LWGWvVmRRZSLVTYI6QBT8yGd4U2YxY+aF8azi8zIR0+hWQKNjDO3xyXRlLuc3Z6HBu4KOX6d8wqpO6DWuunpONj8/2ayJRbMBt2p72oBmDG3WsKQK6Nox0OSxoPK1ndXjWObFcMWx84q7w3CHTD8OrkYvdSqTo5V+DJwEAheCJqYWPXZV/MXnhYb1gKy0qPVj5uCyfqHXRHQ== email@exemplo.com
 </code></pre>
 
 <p>Acesse seu servidor Git e edite o arquivo authorized_keys.</p>
 
-<pre><code>$ ssh user@server.com
+<pre><code>ssh user@server.com
 user@server.com's password: 
 Last login: Fri Sep 30 19:07:03 2011 from 177.32.53.79
-user@server.com [~]# vim .ssh/authorized_keys
+user@server.com [~]# vim ~/.ssh/authorized_keys
 </code></pre>
 
 <p>Adicione sua chave e salve o arquivo.</p>
+
+<pre><code>user@server.com [~]# touch ~/.ssh/authorized_keys
+user@server.com [~]# chmod 644 ~/.ssh/authorized_keys
+</code></pre>
 
 <hr />
 
@@ -300,7 +373,7 @@ user@server.com [~]# vim .ssh/authorized_keys
 
 <p>Se você tem o <a href="http://mxcl.github.com/homebrew/" title="Homebrew">Homebrew</a> instalado, você conhece o caminho:</p>
 
-<pre><code>$ brew install git
+<pre><code>brew install git
 </code></pre>
 
 <p>Você também pode fazer o download do <a href="http://code.google.com/p/git-osx-installer/downloads/list?can=3" title="Instalador Git">instalador pré-compilado</a> e instalar o git assim como a maioria das aplicações.</p>
@@ -315,7 +388,7 @@ user@server.com [~]# vim .ssh/authorized_keys
 
 <hr />
 
-<p>O mais popular jeito de rodar o git no Windows é <a href="http://git-scm.com/download">mysysgit</a></p>
+<p>Alguns utilizam o <a href="http://code.google.com/p/tortoisegit/">tortoisegit</a>, mesmo assim você precisa instalar o <a href="http://git-scm.com/download">mysysgit</a>.</p>
 
 <h2>Global settings</h2>
 
@@ -323,23 +396,23 @@ user@server.com [~]# vim .ssh/authorized_keys
 
 <p>Depois de tudo instalado é a hora de definir algumas configurações globais:</p>
 
-<pre><code>$ git config --global user.name "Nome Sobrenome"
-$ git config --global user.email "email@exemplo.com"
+<pre><code>git config --global user.name "Nome Sobrenome"
+git config --global user.email "email@exemplo.com"
 </code></pre>
 
 <p>Se você pretende trabalhar com pessoas de diferentes <strong>sistemas operacionais</strong> todos devem definir a mesma configuração para evitar problemas maiores com o final de linha (<a href="http://help.github.com/dealing-with-lineendings/">mais sobre o porquê</a>):</p>
 
-<pre><code>$ git config --global core.autocrlf input
+<pre><code>git config --global core.autocrlf input
 </code></pre>
 
 <h3>Plus (Global settings)</h3>
 
-<p>Alguns atalhos para facilitar a sua vida:</p>
+<p>Alguns alias para facilitar a sua vida, exemplo: de <code>git status</code> para <code>git st</code></p>
 
-<pre><code>$ git config --global alias.st status
-$ git config --global alias.ci commit
-$ git config --global alias.co checkout
-$ git config --global alias.br branch
+<pre><code>git config --global alias.st status
+git config --global alias.ci commit
+git config --global alias.co checkout
+git config --global alias.br branch
 </code></pre>
 
 <p>Deixe tudo colorido:</p>

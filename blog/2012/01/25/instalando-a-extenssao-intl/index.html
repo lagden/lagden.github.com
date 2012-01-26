@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2 - Usefull Stuff</title>
+  <meta name="author" content="Thiago Lagden">
+
+  
+  <meta name="description" content="O APC (Alternative PHP Cache) é livre e aberto. Seu objetivo é fornecer um framework robusto para cache e otimização do código PHP. Instalando o APC &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://lagden.github.com/blog/2012/01/25/instalando-a-extenssao-intl">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Usefull Stuff" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26077512-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Usefull Stuff</a></h1>
+  
+    <h2>Helping myself not forget</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss email">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+    <li><a href="http://feeds.feedburner.com/xsource" rel="subscribe-email" title="subscribe via email">Email</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:lagden.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/about">About</a></li>
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+  
+
+<time datetime="2012-01-25T21:00:00-02:00" pubdate>Jan 25<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><blockquote><p>O APC (Alternative PHP Cache) é livre e aberto. Seu objetivo é fornecer um framework robusto para cache e otimização do código PHP.</p></blockquote>
+
+<h3>Instalando o APC</h3>
+
+<p>Abra o terminal e faça o seguinte:</p>
+
+<h4>1. Baixe a última versão</h4>
+
+<pre><code>mkdir -p ~/tmp &amp;&amp; cd ~/tmp
+wget http://pecl.php.net/get/APC-3.1.9.tgz
+tar zxfv APC-3.1.9.tgz
+cd APC-3.1.9
+</code></pre>
+
+<h4>2. Execute o phpize</h4>
+
+<p>phpize é um script que pode ter sido instalado com o PHP. No meu caso, que utilizo PHP que já vem instalado com OS X 10.7, é localizado no <code>/usr/bin/</code>.</p>
+
+<pre><code>cd ~/tmp/APC-3.1.9
+/usr/bin/phpize
+</code></pre>
+
+<h4>3. Execute o script de configuração.</h4>
+
+<p>A única opção que você precisa especificar é a localização do seu script php-config. (Talvez você possa usar <code>which php-config</code> para localizá-lo)</p>
+
+<pre><code>./configure --with-php-config=/usr/bin/php-config --enable-apc
+</code></pre>
+
+<h4>4. Compile e instale</h4>
+
+<pre><code>make
+sudo make install
+</code></pre>
+
+<h4>5. Configure seu php.ini e reinicie o seu servidor web</h4>
+
+<ul>
+<li>abra o arquivo: <code>vim /etc/php.ini</code></li>
+<li>coloque essa linha: <code>extension="apc.so"</code></li>
+<li>salve reinicie o seu servidor web: <code>sudo apachectl restart</code></li>
+</ul>
+
+
+<p>Para verificar se foi instalado corretamente, execute <code>php -i | grep apc</code>. Isso deverá resultar algo assim:</p>
+
+<pre><code>apc
+apc.cache_by_default =&gt; On =&gt; On
+apc.canonicalize =&gt; On =&gt; On
+apc.coredump_unmap =&gt; Off =&gt; Off
+apc.enable_cli =&gt; Off =&gt; Off
+apc.enabled =&gt; On =&gt; On
+.
+.
+.
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Thiago Lagden</span></span>
+
+      
+
+
+
+
+  
+
+<time datetime="2012-01-25T21:00:00-02:00" pubdate>Jan 25<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/apc/'>APC</a>, <a class='category' href='/blog/categories/php/'>PHP</a>, <a class='category' href='/blog/categories/extensão/'>extensão</a>, <a class='category' href='/blog/categories/instalação/'>instalação</a>, <a class='category' href='/blog/categories/lion/'>lion</a>, <a class='category' href='/blog/categories/osx/'>osx</a>, <a class='category' href='/blog/categories/phpize/'>phpize</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://lagden.github.com/blog/2012/01/25/instalando-a-extenssao-intl/" data-via="thiagolagden" data-counturl="http://lagden.github.com/blog/2012/01/25/instalando-a-extenssao-intl/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/10/01/repositorio-remoto/" title="Previous Post: Repositório remoto">&laquo; Repositório remoto</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/01/25/instalando-a-extenssao-intl/">Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/01/repositorio-remoto/">Repositório remoto</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/01/gerando-uma-chave-ssh/">Gerando uma chave SSH</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/01/instalando-git/">Instalando Git</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/117052370664889070330?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("thiagolagden", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/thiagolagden" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @thiagolagden</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Thiago Lagden -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

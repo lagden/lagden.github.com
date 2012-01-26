@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: projects | X-Source]]></title>
+  <title><![CDATA[Category: projects | Usefull Stuff]]></title>
   <link href="http://lagden.github.com/blog/categories/projects/atom.xml" rel="self"/>
   <link href="http://lagden.github.com/"/>
-  <updated>2011-10-23T03:58:37-02:00</updated>
+  <updated>2012-01-25T23:48:33-02:00</updated>
   <id>http://lagden.github.com/</id>
   <author>
     <name><![CDATA[Thiago Lagden]]></name>
@@ -24,7 +24,7 @@
 
 <p>Se você tem o <a href="http://mxcl.github.com/homebrew/" title="Homebrew">Homebrew</a> instalado, você conhece o caminho:</p>
 
-<pre><code>$ brew install git
+<pre><code>brew install git
 </code></pre>
 
 <p>Você também pode fazer o download do <a href="http://code.google.com/p/git-osx-installer/downloads/list?can=3" title="Instalador Git">instalador pré-compilado</a> e instalar o git assim como a maioria das aplicações.</p>
@@ -39,7 +39,7 @@
 
 <hr />
 
-<p>O mais popular jeito de rodar o git no Windows é <a href="http://git-scm.com/download">mysysgit</a></p>
+<p>Alguns utilizam o <a href="http://code.google.com/p/tortoisegit/">tortoisegit</a>, mesmo assim você precisa instalar o <a href="http://git-scm.com/download">mysysgit</a>.</p>
 
 <h2>Global settings</h2>
 
@@ -47,23 +47,23 @@
 
 <p>Depois de tudo instalado é a hora de definir algumas configurações globais:</p>
 
-<pre><code>$ git config --global user.name "Nome Sobrenome"
-$ git config --global user.email "email@exemplo.com"
+<pre><code>git config --global user.name "Nome Sobrenome"
+git config --global user.email "email@exemplo.com"
 </code></pre>
 
 <p>Se você pretende trabalhar com pessoas de diferentes <strong>sistemas operacionais</strong> todos devem definir a mesma configuração para evitar problemas maiores com o final de linha (<a href="http://help.github.com/dealing-with-lineendings/">mais sobre o porquê</a>):</p>
 
-<pre><code>$ git config --global core.autocrlf input
+<pre><code>git config --global core.autocrlf input
 </code></pre>
 
 <h3>Plus (Global settings)</h3>
 
-<p>Alguns atalhos para facilitar a sua vida:</p>
+<p>Alguns alias para facilitar a sua vida, exemplo: de <code>git status</code> para <code>git st</code></p>
 
-<pre><code>$ git config --global alias.st status
-$ git config --global alias.ci commit
-$ git config --global alias.co checkout
-$ git config --global alias.br branch
+<pre><code>git config --global alias.st status
+git config --global alias.ci commit
+git config --global alias.co checkout
+git config --global alias.br branch
 </code></pre>
 
 <p>Deixe tudo colorido:</p>

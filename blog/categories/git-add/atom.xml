@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: git add | X-Source]]></title>
+  <title><![CDATA[Category: git add | Usefull Stuff]]></title>
   <link href="http://lagden.github.com/blog/categories/git-add/atom.xml" rel="self"/>
   <link href="http://lagden.github.com/"/>
-  <updated>2011-10-23T03:58:37-02:00</updated>
+  <updated>2012-01-25T23:48:33-02:00</updated>
   <id>http://lagden.github.com/</id>
   <author>
     <name><![CDATA[Thiago Lagden]]></name>
@@ -29,112 +29,119 @@ Há alguns GUI (Interface Gráfica) para git, mas a maioria dos desenvolvedores 
 
 <h3>git init - inicializa um repositório Git</h3>
 
-<p>Para criar um repositório em um diretório com arquivos existentes, você pode simplesmente executar <code>git init</code> no diretório.<br/>
-Por exemplo, digamos que temos um diretório com alguns arquivos nele, assim:</p>
+<p>Para criar um repositório em um diretório com arquivos existentes, podemos simplesmente executar <code>git init</code> no diretório.<br/>
+Digamos que temos um diretório com alguns arquivos nele, por exemplo:</p>
 
-<pre><code>$ cd ~/my_app
-$ ls
+<pre><code>cd ~/my_app
+ls
 README   hello.rb
 </code></pre>
 
-<p>Este é o projeto "Hello Word" que estamos escrevendo de exemplo.<br/>
-Até agora só temos dois arquivos, mas já é um começo para iniciar o controle de versão com git.</p>
+<p>Este é o projeto "Hello Word" que estamos escrevendo.<br/>
+Até o momento temos dois arquivos, mas já podemos iniciar o controle de versão com git.</p>
 
-<pre><code>$ git init
+<pre><code>git init
 Initialized empty Git repository in ~/my_app/.git/
 </code></pre>
 
-<p>Agora você pode ver que há um subdiretório .git em seu projeto.<br/>
+<p>Agora, podemos ver que há um diretório <code>.git</code> em seu projeto.<br/>
 Este é o seu repositório <strong>Git</strong>, onde todos os passos do seu projeto serão armazenados.</p>
 
-<pre><code>$ ls -a
+<pre><code>ls -a
 .        ..       .git     README   hello.rb
 </code></pre>
 
 <h3>git add - adiciona conteúdo do arquivo para a "staging area"</h3>
 
-<p>No Git, você tem que adicionar o conteúdo do arquivo para "staging area" antes de comitá-los.<br/>
-Você deverá executar <code>git add</code> para adicioná-lo na sua "staging area", mesmo se o arquivo já está "tracked" - ou seja, estava no seu último "commit" - precisamos chamar <code>git add</code> para adicionar as novas modificações.</p>
+<p>No Git, você tem que adicionar o arquivo para "staging area" antes de comitá-los.<br/>
+Precisamos executar <code>git add</code> para adicionar as novas modificações.</p>
 
 <p>Voltando ao nosso exemplo "Hello Word", vamos adicionar os arquivos, mas antes, podemos usar <code>git status</code> para ver como está o nosso projeto.</p>
 
-<pre><code>$ git status -s
+<pre><code>git status -s
 ?? README
 ?? hello.rb
 </code></pre>
 
-<p>Neste momento temos dois arquivos "untracked", ou seja, ainda não estão sendo "tracked". Vamos adicioná-los.</p>
+<p>Neste momento temos dois arquivos "untracked". Vamos adicioná-los.</p>
 
-<pre><code>$ git add README hello.rb
+<pre><code>git add README hello.rb
 </code></pre>
 
 <p>Também é comum adicionar recursivamente todos arquivos:</p>
 
-<pre><code>$ git add .
+<pre><code>git add .
 </code></pre>
 
 <p>Se executarmos o <code>git status</code> novamente veremos que os arquivos foram adicionados.</p>
 
-<pre><code>$ git status -s
+<pre><code>git status -s
 A  README
 A  hello.rb
 </code></pre>
 
-<p>OK, vamos editar um dos arquivos e executar o <code>git status</code> de para ver o que acontece.</p>
+<p>OK! Vamos editar um dos arquivos e executar o <code>git status</code> de para ver o que acontece.</p>
 
-<pre><code>$ echo "Alterei o leia isso." &gt; README
-$ git status -s
+<pre><code>echo "Alterei o leia-me." &gt; README
+git status -s
 AM README
 A  hello.rb
 </code></pre>
 
-<p>O status "AM" significa que o arquivo foi modificado desde a última vez que foi adicionado.<br/>
-Isso significa que se comitarmos agora, nós gravaremos a versão do arquivo que foi adicionado pela última vez, e não a versão que está no seu disco.</p>
+<p>O status <code>AM</code> significa que o arquivo foi modificado desde a última vez que foi adicionado.<br/>
+Isso significa que: se executarmos o <code>git commit</code> neste momento, gravaremos a versão do arquivo que foi adicionado pela última vez, e não a versão modificada.</p>
+
+<p>Caso queira comitar a versão modificada, basta executar o <code>git add .</code> novamente.</p>
 
 <h3>git commit - grava a versão do que foi adicionado na "staging area"</h3>
 
-<p>Agora que você organizou o conteúdo com o comando <code>git add</code>, execute <code>git commit</code> para realmente gravar sua versão.</p>
+<p>Agora que você organizou os arquivos com o comando <code>git add</code>.</p>
 
-<pre><code>$ git add .
-$ git status -s
+<pre><code>git add .
+git status -s
 A  README
 A  hello.rb
-$ git commit -m "Primeiro commit"
+</code></pre>
+
+<p>Execute <code>git commit</code> para gravar sua versão.</p>
+
+<pre><code>git commit -m "Primeiro commit"
 [master (root-commit) f0c26a6] Primeiro commit
  2 files changed, 6 insertions(+), 0 deletions(-)
  create mode 100644 README
  create mode 100644 hello.rb
 </code></pre>
 
-<p>Vamos alterar o README e comitar sua nova versão.</p>
+<p>Gooodd!!! Agora vamos alterar o <code>README</code> e comitar uma nova versão.</p>
 
-<pre><code>$ echo "Leia isso." &gt; README
-$ git st -s
+<pre><code>echo "Leia-me. Muito importante." &gt; README
+git st -s
  M README
-$ git add .
-$ git ci -m "alterado o README"
+git add .
+git ci -m "alterado o README"
 [master e4bdd45] alterado o README
  1 files changed, 1 insertions(+), 1 deletions(-)
 </code></pre>
 
-<p>Agora um pequeno exemplo de como reverter algumas mudanças com o <code>git checkout</code>.</p>
+<h3>git checkout - pequeno exemplo</h3>
 
-<p>Faça alguma alteração no README:</p>
+<p>Agora um pequeno exemplo de como reverter algumas mudanças com o <code>git checkout</code>.<br/>
+Faça alguma alteração no <code>README</code>:</p>
 
-<pre><code>$ echo "Agora leia isso aqui." &gt; README
-$ git st -s
+<pre><code>echo "WTF..." &gt; README
+git st -s
  M README
 </code></pre>
 
 <p>Então execute este comando:</p>
 
-<pre><code>$ git checkout README
+<pre><code>git checkout README
 </code></pre>
 
-<p>Abra seu editor de texto e veja que README voltou para última vez que foi comitado.</p>
+<p>Abra seu editor de texto e veja que <code>README</code> voltou para última vez que foi comitado.</p>
 
-<pre><code>$ cat README 
-Leia isso.
+<pre><code>cat README 
+Leia-me. Muito importante.
 </code></pre>
 
 <hr />
