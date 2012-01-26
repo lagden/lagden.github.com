@@ -9,7 +9,7 @@
   <meta name="author" content="Thiago Lagden">
 
   
-  <meta name="description" content="Trabalhar com um repositório remoto é uma ótima maneira de colaborar o seu código com outros desenvolvedores, trabalhar em várias máquinas e fazer &hellip;">
+  <meta name="description" content="A extensão APC (Alternative PHP Cache) é livre e aberta. Seu objetivo é fornecer um framework robusto para cache e otimização do código PHP. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,7 +83,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/10/01/repositorio-remoto/">Repositório remoto</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/01/25/instalando-a-extenssao-apc/">Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2</a></h1>
     
     
       <p class="meta">
@@ -94,63 +94,69 @@
 
   
 
-<time datetime="2011-10-01T16:36:00-03:00" pubdate>Oct 1<span>st</span>, 2011</time>
+<time datetime="2012-01-25T21:00:00-02:00" pubdate>Jan 25<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><blockquote><p>Trabalhar com um repositório remoto é uma ótima maneira de colaborar o seu código com outros desenvolvedores, trabalhar em várias máquinas e fazer backup de seu código fonte.<br/>
-Um repositório remoto é simplesmente outro repositório, normalmente em outro servidor, que você pode empurrar (<code>git push</code>) os seus commits e puxar (<code>git pull</code>) commits dos outros.</p></blockquote>
+  <div class="entry-content"><blockquote><p>A extensão APC (Alternative PHP Cache) é livre e aberta. Seu objetivo é fornecer um framework robusto para cache e otimização do código PHP.</p></blockquote>
 
-<h3>Adicionando um servidor remoto</h3>
+<h3>Instalando o APC</h3>
 
-<hr />
+<p>Abra o terminal e faça o seguinte:</p>
 
-<p>Utilizaremos o projeto &#8220;Hello Word&#8221; criado no artigo <a href="/blog/2011/10/01/git-para-iniciantes/">Git para iniciantes</a>.</p>
+<h4>1. Baixe a última versão</h4>
 
-<blockquote><p><strong>Atenção:</strong> Crie um repositório no seu servidor remoto com o commando <code>git init --bare</code></p></blockquote>
-
-<pre><code>ssh user@server.com
-user@server.com's password: 
-Last login: Fri Sep 30 19:07:03 2011 from 177.32.53.79
-user@server.com [~]# mkdir -p git/hello.git
-user@server.com [~]# cd git/hello.git
-user@server.com [~]# git init --bare
+<pre><code>mkdir -p ~/tmp &amp;&amp; cd ~/tmp
+wget http://pecl.php.net/get/APC-3.1.9.tgz
+tar zxfv APC-3.1.9.tgz
+cd APC-3.1.9
 </code></pre>
 
-<p>Na sua máquina, adicione repositório remoto:</p>
+<h4>2. Execute o phpize</h4>
 
-<pre><code>cd ~/my_app
-git remote add origin ssh://user@server.com/~/git/hello.git
+<p>phpize é um script que pode ter sido instalado com o PHP. No meu caso, que utilizo PHP que já vem instalado com OS X 10.7, é localizado no <code>/usr/bin/</code>.</p>
+
+<pre><code>cd ~/tmp/APC-3.1.9
+/usr/bin/phpize
 </code></pre>
 
-<blockquote><p>Você pode ter vários controles remotos e dar nomes diferentes para cada, como &#8220;palco&#8221; ou &#8220;projeto&#8221;.<br/>
-Veja todos os seus controles remotos com <code>git remote</code> ou <code>git remote -v</code>.</p></blockquote>
+<h4>3. Execute o script de configuração.</h4>
 
-<h3>git push - Empurre seus commits para o repositório remoto</h3>
+<p>A única opção que você precisa especificar é a localização do seu script php-config. (Talvez você possa usar <code>which php-config</code> para localizá-lo)</p>
 
-<pre><code>git push -u origin master
-Counting objects: 3, done. 
-Writing objects: 100% (3/3), 242 bytes, done. 
-Total 3 (delta 0), reused 0 (delta 0) 
-Unpacking objects: 100% (3/3), done.
-To ssh://user@server.com/~/git/hello.git
- * [new branch]      master -&gt; master
+<pre><code>./configure --with-php-config=/usr/bin/php-config --enable-apc
 </code></pre>
 
-<h3>git pull - Puxe as alterações do repositório de origem</h3>
+<h4>4. Compile e instale</h4>
 
-<p>É uma boa prática puxar (<code>git pull</code>) antes de empurrar (<code>git push</code>), assegurando que você tenha o código mais recente.</p>
-
-<pre><code>git pull origin master
+<pre><code>make
+sudo make install
 </code></pre>
 
-<p>Isso irá sincronizar seu repositório local com o repositório remoto.</p>
+<h4>5. Configure seu php.ini e reinicie o seu servidor web</h4>
 
-<p>Geralmente o &#8220;merge&#8221; dos repositórios ocorrem sem problemas, mas às vezes podem acontercer conflitos que deverão ser arrumados manualmente de preferência.<br/>
-Está curioso? Veja <a href="http://genomewiki.ucsc.edu/index.php/Resolving_merge_conflicts_in_Git">Resolvendo conflitos</a></p>
+<ul>
+<li>abra o arquivo: <code>vim /etc/php.ini</code></li>
+<li>coloque essa linha: <code>extension="apc.so"</code></li>
+<li>salve reinicie o seu servidor web: <code>sudo apachectl restart</code></li>
+</ul>
+
+
+<p>Para verificar se foi instalado corretamente, execute <code>php -i | grep apc</code>. Isso deverá resultar algo assim:</p>
+
+<pre><code>apc
+apc.cache_by_default =&gt; On =&gt; On
+apc.canonicalize =&gt; On =&gt; On
+apc.coredump_unmap =&gt; Off =&gt; Off
+apc.enable_cli =&gt; Off =&gt; Off
+apc.enabled =&gt; On =&gt; On
+.
+.
+.
+</code></pre>
 </div>
   
   
@@ -175,7 +181,11 @@ Está curioso? Veja <a href="http://genomewiki.ucsc.edu/index.php/Resolving_merg
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2012/01/25/instalando-a-extenssao-intl/">Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2</a>
+        <a href="/blog/2012/01/25/instalando-a-extenssao-intl/">Instalando a extensão Intl no PHP 5.3 - Mac OS X 10.7.2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/25/instalando-a-extenssao-apc/">Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2</a>
       </li>
     
       <li class="post">

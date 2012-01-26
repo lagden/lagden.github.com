@@ -4,7 +4,7 @@
   <title><![CDATA[Category: phpize | Usefull Stuff]]></title>
   <link href="http://lagden.github.com/blog/categories/phpize/atom.xml" rel="self"/>
   <link href="http://lagden.github.com/"/>
-  <updated>2012-01-25T23:48:33-02:00</updated>
+  <updated>2012-01-26T00:32:32-02:00</updated>
   <id>http://lagden.github.com/</id>
   <author>
     <name><![CDATA[Thiago Lagden]]></name>
@@ -14,11 +14,61 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2]]></title>
+    <title type="html"><![CDATA[Instalando a extensão Intl no PHP 5.3 - Mac OS X 10.7.2]]></title>
     <link href="http://lagden.github.com/blog/2012/01/25/instalando-a-extenssao-intl/"/>
     <updated>2012-01-25T21:00:00-02:00</updated>
     <id>http://lagden.github.com/blog/2012/01/25/instalando-a-extenssao-intl</id>
-    <content type="html"><![CDATA[<blockquote><p>O APC (Alternative PHP Cache) é livre e aberto. Seu objetivo é fornecer um framework robusto para cache e otimização do código PHP.</p></blockquote>
+    <content type="html"><![CDATA[<blockquote><p>A extensão <a href="http://br.php.net/manual/en/intro.intl.php">Intl</a> (Internationalization) é um wrapper da biblioteca <a href="http://site.icu-project.org/">ICU</a>.<br/>
+É necessário ter a biblioteca ICU instalada.</p></blockquote>
+
+<h3>Instalando a biblioteca ICU</h3>
+
+<pre><code>mkdir -p ~/tmp &amp;&amp; cd ~/tmp
+wget http://download.icu-project.org/files/icu4c/4.8.1.1/icu4c-4_8_1_1-src.tgz
+tar zxfv icu4c-4_8_1_1-src.tgz
+cd ~/tmp/icu/source/
+./configure --prefix=/usr/local
+make
+sudo make install
+</code></pre>
+
+<h3>Instalando o intl</h3>
+
+<p>A instalação é semelhante ao <a href="/blog/2012/01/25/instalando-a-extenssao-apc">APC</a>, que está com a explicação detalhada.</p>
+
+<pre><code>mkdir -p ~/tmp &amp;&amp; cd ~/tmp
+wget http://pecl.php.net/get/intl-2.0.0b1.tgz
+tar zxfv intl-2.0.0b1.tgz 
+cd ~/tmp/intl-2.0.0b1 &amp;&amp; /usr/bin/phpize
+./configure --with-php-config=/usr/bin/php-config -enable-intl
+make
+sudo make install
+</code></pre>
+
+<h3>Configure seu php.ini e reinicie o seu servidor web</h3>
+
+<ul>
+<li>abra o arquivo: <code>vim /etc/php.ini</code></li>
+<li>coloque essa linha: <code>extension="intl.so"</code></li>
+<li>salve reinicie o seu servidor web: <code>sudo apachectl restart</code></li>
+</ul>
+
+
+<p>Para verificar se foi instalado corretamente, execute <code>php -i | grep intl</code>. Isso deverá resultar algo assim:</p>
+
+<pre><code>intl
+intl.default_locale =&gt; no value =&gt; no value
+intl.error_level =&gt; 0 =&gt; 0
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2]]></title>
+    <link href="http://lagden.github.com/blog/2012/01/25/instalando-a-extenssao-apc/"/>
+    <updated>2012-01-25T21:00:00-02:00</updated>
+    <id>http://lagden.github.com/blog/2012/01/25/instalando-a-extenssao-apc</id>
+    <content type="html"><![CDATA[<blockquote><p>A extensão APC (Alternative PHP Cache) é livre e aberta. Seu objetivo é fornecer um framework robusto para cache e otimização do código PHP.</p></blockquote>
 
 <h3>Instalando o APC</h3>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: APC | Usefull Stuff]]></title>
   <link href="http://lagden.github.com/blog/categories/apc/atom.xml" rel="self"/>
   <link href="http://lagden.github.com/"/>
-  <updated>2012-01-25T23:48:33-02:00</updated>
+  <updated>2012-01-26T00:32:32-02:00</updated>
   <id>http://lagden.github.com/</id>
   <author>
     <name><![CDATA[Thiago Lagden]]></name>
@@ -15,10 +15,10 @@
   
   <entry>
     <title type="html"><![CDATA[Instalando a extensão APC no PHP 5.3 - Mac OS X 10.7.2]]></title>
-    <link href="http://lagden.github.com/blog/2012/01/25/instalando-a-extenssao-intl/"/>
+    <link href="http://lagden.github.com/blog/2012/01/25/instalando-a-extenssao-apc/"/>
     <updated>2012-01-25T21:00:00-02:00</updated>
-    <id>http://lagden.github.com/blog/2012/01/25/instalando-a-extenssao-intl</id>
-    <content type="html"><![CDATA[<blockquote><p>O APC (Alternative PHP Cache) é livre e aberto. Seu objetivo é fornecer um framework robusto para cache e otimização do código PHP.</p></blockquote>
+    <id>http://lagden.github.com/blog/2012/01/25/instalando-a-extenssao-apc</id>
+    <content type="html"><![CDATA[<blockquote><p>A extensão APC (Alternative PHP Cache) é livre e aberta. Seu objetivo é fornecer um framework robusto para cache e otimização do código PHP.</p></blockquote>
 
 <h3>Instalando o APC</h3>
 
