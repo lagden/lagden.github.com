@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: git init | Usefull Stuff]]></title>
+  <title><![CDATA[Category: git init | Lagden's Stuff]]></title>
   <link href="http://lagden.github.com/blog/categories/git-init/atom.xml" rel="self"/>
   <link href="http://lagden.github.com/"/>
-  <updated>2012-04-10T01:13:53-03:00</updated>
+  <updated>2012-04-10T01:31:50-03:00</updated>
   <id>http://lagden.github.com/</id>
   <author>
     <name><![CDATA[Thiago Lagden]]></name>
